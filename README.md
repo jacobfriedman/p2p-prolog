@@ -9,7 +9,6 @@ First, a barebone/prototype will be used to demonstrate a prolog core in a libp2
 <https://emscripten.org/docs/getting_started/downloads.html>
 
 ```
-
 sudo apt-get install python3
 sudo apt-get install cmake
 git clone https://github.com/emscripten-core/emsdk.git
@@ -32,8 +31,7 @@ emconfigure ./configure
 emmake make
 ```
 
-
-# DRAGON: My first attempt resulted in
+### DRAGON: My first attempt resulted in
 ```
 configure: ./configure
 Compiler error reporting is too harsh for ./configure (perhaps remove -Werror).
