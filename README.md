@@ -4,7 +4,9 @@ This repo will eventually offload most of the libp2p functions required into pro
 
 First, a barebone/prototype will be used to demonstrate a prolog core in a libp2p environment...
 
-## 1. Install emscripten <https://emscripten.org/docs/getting_started/downloads.html>
+## 1. Install emscripten.
+
+<https://emscripten.org/docs/getting_started/downloads.html>
 
 ```
 
@@ -18,7 +20,8 @@ git pull
 source ./emsdk_env.sh
 ```
 
-##. Follow Jan Wielemaker's Swipl-devel -> WASM tutorial: <https://github.com/SWI-Prolog/swipl-wasm>
+## 2. Follow Jan Wielemaker's Swipl-devel -> WASM tutorial: 
+<https://github.com/SWI-Prolog/swipl-wasm>
 
 
 ```
