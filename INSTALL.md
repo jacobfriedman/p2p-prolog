@@ -1,4 +1,4 @@
-From ABSOLUTE 0:
+## How to Build
 
 Debian; Raspberry PI (Raspbian 8.3.0-6+rpi1) / Linux (Ubuntu 20)
 
@@ -17,16 +17,16 @@ Docker, cmake, etc..
 Note: we don't want Java ... X default-jdk junit4 (it's 1GIG we just don't care for)
 
 ```
-
 ############################
 # 1. Install Dependencies  #
 ############################
+apt update
+apt upgrade
 
-sudo apt update
-sudo apt upgrade
-
-sudo apt-get install -y \
+apt-get install -y \
+	apt-utils \
 	build-essential cmake pkg-config \
+	git \
 	ncurses-dev libreadline-dev libedit-dev \
 	libgoogle-perftools-dev \
 	libunwind-dev \
@@ -42,26 +42,49 @@ sudo apt-get install -y \
 	libyaml-dev \
 	python3
 
-
-
-
 ############################
-# 3.     Build SWIPL       #
+# 2. Build ZLib   #
 ############################
+
+wget https://zlib.net/zlib-1.2.11.tar.gz -O "$HOME/zlib-1.2.11.tar.gz"
+tar -xf "$HOME/zlib-1.2.11.tar.gz" -C "$HOME"
+cd "$HOME/zlib-1.2.11"
+emconfigure ./configure
+emmake make
+
+########################################################
+# 3.  Build Emscripten   
+########################################################
+
+cd $HOME
+git clone https://github.com/emscripten-core/emsdk.git
+cd emsdk
+./emsdk install latest
+./emsdk activate latest
+source ./emsdk_env.sh
+
+########################################################
+# 4.  Build SWIPL       
+########################################################
 
 cd $HOME
 git clone https://github.com/SWI-Prolog/swipl-devel.git
 cd swipl-devel
 git submodule update --init
+
+#
+# 4.a. Build 'Development' Build...
+#
+
 mkdir build
 cd build
 cmake -DSWIPL_PACKAGES_JAVA=OFF ..
 make
 make install
 
-############################
-# 3.   Build SWIPL WASM    #
-############################
+#
+# 4.a. Build 'WASM' 'Development' Build...
+#
 
 cd $HOME/swipl-devel
 mkdir build.wasm
