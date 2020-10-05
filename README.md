@@ -13,6 +13,7 @@ This repo will eventually offload most of the libp2p functions required into pro
 
 ## Browser
 
+- [ ] Grab from the swipl-wasm example index
 - [ ] Pipe <body> to stdin on mutation
 - [ ] Link up libP2P to main host
 - [ ] Check for RPC possibilities with local PL-browser server
