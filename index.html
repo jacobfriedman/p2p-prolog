@@ -7,8 +7,9 @@
         	import Swipl from './swipl-web.js';
 
             window.bindings = null;
-            let stdin = '';
-            let stdinPosition = 0;
+            let stdin = '',
+            		stdinPosition = 0;
+
             // We use this to provide data into
             // the SWI stdin.
             const setStdin = (string) => {
@@ -25,23 +26,9 @@
                 }
             };
 
-                        // Helper to print stdout from SWI.
-            const print = (line) => {
-                console.log(line + '\n')
-            };
-
-            // Helper to print stderr from SWI.
-            const printErr = (line) => {
-                /*const node = document.createElement('span');
-                node.className = 'output-error';
-                node.textContent = line + '\n';
-                output.appendChild(node);
-                */
-                console.log(line + '\n')
-            };
-
-
-
+             // Helper to print stdout from SWI.
+            const print = line => console.log(line)
+            const printErr = line => console.log(line)
 
             // Helper function to call a query.
             const callQuery = (bindings, input) => {
@@ -49,18 +36,13 @@
                 /*const node = document.createTextNode(input + '\n');
                 output.appendChild(node);
                 */
-            //    console.log(line + '\n')
-                setStdin(input);
-
-           
-
-                // This will execute one iteration of toplevel.
-                call(bindings, 'break'); // see call.js
+              setStdin(input);
+              // This will execute one iteration of toplevel.
+              call(bindings, 'break'); // see call.js
             }
             
-
             // Creates bindings to the SWI foreign API.
-            const createBindings = (module) => {
+            const createBindings = module => {
                 return {
                     PL_initialise: module.cwrap('PL_initialise', 'number', ['number', 'number']),
                     PL_new_term_ref: module.cwrap('PL_new_term_ref', 'number', []),
@@ -70,7 +52,7 @@
             };
 
             // Helper function to parse a JavaScript
-            // string into a Prolog term and call is as a query.
+            // string into a Prolog term and call it as a query.
             const call = (bindings, query) => {
                 const ref = bindings.PL_new_term_ref();
                 if (!bindings.PL_chars_to_term(query, ref)) {
@@ -98,26 +80,7 @@
                 call(bindings, "assert(user:file_search_path(library, 'wasm-preload/library')).");
             };
 
-           // let Module = {
-            /*    //print: print,
-                //args: [],
-                //printErr: printErr,
-                preRun: [module => module.FS.init(readStdin)],
-                onRuntimeInitialized: () => {
-                    console.log('hi!')
-                    // Bind foreign functions to JavaScript.
-                    bindings = createBindings(Module);
-                    // Initialise SWI-Prolog.
-                    initialise(bindings, Module);
-                }
-
-                } 
-                */
-
-
            (async () => {
-
-
            	const swipl = Swipl({
 	           			arguments:['swipl','-x', 'wasm-preload/boot.prc', '--nosignals'],
 	           			print: print,
@@ -137,56 +100,23 @@
                 callQuery(bindings, "consult('/file.pl').");
               }
 
-
-		           	});
-
+           	});
 		       // End the async Immediately Invoked Function Expression
            })();
-
-
-
-  
-       
-
-        //
-        //  
-      /*  SWIPL({
-            arguments: [
-                'swipl',
-                '-x', 'wasm-preload/boot.prc'
-            ],
-        }).then(async (module) => {
-
-          console.log({module})
-
-         const prolog = new Prolog(module, [
-                        'swipl',
-                        '-x', 'wasm-preload/swipl.prc',
-                        '--nosignals'
-                    ]);
-                    */
-
-                    // populate the actual Module object.
-
-
-
+    
         const observer_config = { 
                 attributes: true, 
                 childList: true, 
                 subtree: true, 
                 characterData: true 
-            }
-                    
-         const observer = new MutationObserver(
+            }               
+        const observer = new MutationObserver(
 										            (mutationList,observer) => console.log(mutationList)
-									            ).observe(window.document, observer_config);
- 
+									           ).observe(window.document, observer_config)
 
         </script>
 
-       
         <style>
-
             html {
                 padding:40px;
                 font-family:monospace;
@@ -195,9 +125,7 @@
             }    
             body {
                 white-space:pre-wrap;
-
-            }
-        </style>
+            }/style>
     </head>
 
     <body contenteditable>
