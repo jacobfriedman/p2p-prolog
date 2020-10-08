@@ -2,6 +2,9 @@
 
 This repo will eventually offload most of the libp2p functions required into prolog.
 
+```node index.mjs --experimental-modules```
+
+
 ## Todo:
 
 - [X] BROWSER  Build swipl-wasm:  
@@ -13,13 +16,18 @@ This repo will eventually offload most of the libp2p functions required into pro
 
 ## Browser
 
-- [ ] Grab from the swipl-wasm example index
+- [ ] Install libP2P
+- [ ] Include Paxos bindings to libP2P
+- [X] Grab from the swipl-wasm example index
 - [ ] Pipe <body> to stdin on mutation
-- [ ] Link up libP2P to main host
 - [ ] Check for RPC possibilities with local PL-browser server
 - [ ] Enable dlopen dynamic file linking <https://github.com/emscripten-core/emscripten/wiki/Linking>
-- [ ] Actually output ES6 Modules, rather than Node Modules
+- [ ] ~~Actually output ES6 Modules, rather than Node Modules~~
 
 future: use Krustlet to handle WASMs with Kubernetes?
 
 
+## Node
+
+- [ ] Install libP2P
+- [ ] Include Paxos bindings to libP2P

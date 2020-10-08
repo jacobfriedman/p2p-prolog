@@ -1,15 +1,29 @@
 <html>
-    <head>
-        <title>P2P Prolog</title>
-        <link rel="icon" href="https://www.swi-prolog.org/icons/favicon.ico" />
-        <script type="module">
+	<head>
+	<title>P2P Prolog</title>
+	<link rel="icon" href="https://www.swi-prolog.org/icons/favicon.ico" />
 
-        	import Swipl from './swipl-web.js';
+	<style>
+            body { font-family: sans-serif; }
+            .app { display: flex; }
+            .console, .editor { flex: 1; box-sizing: border-box; padding: 10px; }
+            .console { max-width: 600px; }
+            .output-error { color: #900; }
+            input, textarea { box-sizing: border-box; width: 100%; }
+            .loader { animation: blinker 1s linear infinite; font-size: 70px; display: none; }
 
-            window.bindings = null;
-            let stdin = '',
-            		stdinPosition = 0;
+        </style>
 
+
+
+
+	<script type="module">
+
+		import SWIPL from './swipl-web.js';
+
+     let bindings = null;
+            let stdin = '';
+            let stdinPosition = 0;
             // We use this to provide data into
             // the SWI stdin.
             const setStdin = (string) => {
@@ -25,24 +39,36 @@
                     return code;
                 }
             };
-
-             // Helper to print stdout from SWI.
-            const print = line => console.log(line)
-            const printErr = line => console.log(line)
+            const output = document.getElementById('output');
+            const input = document.getElementById('input');
+            const editor = document.getElementById('editor');
 
             // Helper function to call a query.
-            const callQuery = (bindings, input) => {
+            const query = (bindings, input) => {
                 // Show the query in the console output.
-                /*const node = document.createTextNode(input + '\n');
+                const node = document.createTextNode(input + '\n');
                 output.appendChild(node);
-                */
-              setStdin(input);
-              // This will execute one iteration of toplevel.
-              call(bindings, 'break'); // see call.js
+                setStdin(input);
+                // This will execute one iteration of toplevel.
+                call(bindings, 'break'); // see call.js
             }
             
+
+            // Helper to print stdout from SWI.
+            const print = (line) => {
+                output.appendChild(document.createTextNode(line + '\n'));
+            };
+
+            // Helper to print stderr from SWI.
+            const printErr = (line) => {
+                const node = document.createElement('span');
+                node.className = 'output-error';
+                node.textContent = line + '\n';
+                output.appendChild(node);
+            };
+
             // Creates bindings to the SWI foreign API.
-            const createBindings = module => {
+            const createBindings = (module) => {
                 return {
                     PL_initialise: module.cwrap('PL_initialise', 'number', ['number', 'number']),
                     PL_new_term_ref: module.cwrap('PL_new_term_ref', 'number', []),
@@ -52,7 +78,7 @@
             };
 
             // Helper function to parse a JavaScript
-            // string into a Prolog term and call it as a query.
+            // string into a Prolog term and call is as a query.
             const call = (bindings, query) => {
                 const ref = bindings.PL_new_term_ref();
                 if (!bindings.PL_chars_to_term(query, ref)) {
@@ -61,6 +87,9 @@
                 return !!bindings.PL_call(ref, 0);
             };
 
+            // This will set up the arguments necessary for the PL_initialise
+            // function and will call it.
+            // See http://www.swi-prolog.org/pldoc/doc_for?object=c(%27PL_initialise%27)
             const initialise = (bindings, module) => {
                 const argvArray = [
                     module.allocate(module.intArrayFromString('swipl'), 'i8', module.ALLOC_NORMAL),
@@ -80,87 +109,124 @@
                 call(bindings, "assert(user:file_search_path(library, 'wasm-preload/library')).");
             };
 
-           (async () => {
-           	const swipl = Swipl({
-	           			arguments:['swipl','-x', 'wasm-preload/boot.prc', '--nosignals'],
-	           			print: print,
-	                printErr: printErr,
-	           			preRun: [module => module.FS.init(readStdin)],
 
-	           		}).then(module => {
+	   // INIT
+	   (async () => {
+	   	const swipl = SWIPL({
+	     			arguments:['swipl','-x', 'wasm-preload/boot.prc', '--nosignals'],
+	     			print: print,
+	          printErr: printErr,
+	     			preRun: [module => module.FS.init(readStdin)],
 
-		           		console.log({module})
+	     		}).then(module => {
 
-		           		 bindings = createBindings(module);
-                    // Initialise SWI-Prolog.
-                    initialise(bindings, module);
+	       		console.log({module})
 
-                                window.query = (input) => {
-	            	module.FS.writeFile('/file.pl',input + '\n');
-                callQuery(bindings, "consult('/file.pl').");
-              }
+	       		bindings = createBindings(module);
 
-           	});
-		       // End the async Immediately Invoked Function Expression
-           })();
+	          // Initialise SWI-Prolog.
+	          initialise(bindings, module);
+
+
+
+	      input.addEventListener('submit', (e) => {
+                e.preventDefault();
+                query(bindings, e.target.elements.query.value);
+                e.target.elements.query.value = '';
+            }, false);
+            
+            editor.addEventListener('submit', (e) => {
+                e.preventDefault();
+                module.FS.writeFile('/file.pl', e.target.elements.file.value);
+                query(bindings, "consult('/file.pl').");
+            }, false);
+
+
+	     	});
+	   })();
+	   // END INIT
+
+            
+	const observer = new MutationObserver((mutationList,observer) => console.log(mutationList)
+						           ).observe(
+											           window.document, 
+											           { 
+													        attributes: true, 
+													        childList: true, 
+													        subtree: true, 
+													        characterData: true 
+																} 
+	    )
+
+	</script>
+
+	<style>
+	    html {
+	        padding:40px;
+	        font-family:monospace;
+	       /* filter:invert(1);
+	        background:black;
+	        */
+	    }    
+	    body {
+	        white-space:pre-wrap;
+	    }
+	    </style>
+	</head>
+
+	<body>
+
+
+            <div class="app">
+                <div class="console">
+                    <pre class="output" id="output"></pre>
+                    <form class="input" id="input">
+                        <input type="text" name="query">
+                    </form>
+                </div>
+                <div class="editor">
+                    <form id="editor">
+                        <textarea name="file" rows="50">
+:- use_module(library(lists)).
+
+%%    queens(+N, -Queens) is nondet.
+%
+%	@param	Queens is a list of column numbers for placing the queens.
+%	@author Richard A. O'Keefe (The Craft of Prolog)
+
+queens(N, Queens) :-
+    length(Queens, N),
+    board(Queens, Board, 0, N, _, _),
+    queens(Board, 0, Queens).
+
+board([], [], N, N, _, _).
+board([_|Queens], [Col-Vars|Board], Col0, N, [_|VR], VC) :-
+    Col is Col0+1,
+    functor(Vars, f, N),
+    constraints(N, Vars, VR, VC),
+    board(Queens, Board, Col, N, VR, [_|VC]).
+
+constraints(0, _, _, _) :- !.
+constraints(N, Row, [R|Rs], [C|Cs]) :-
+    arg(N, Row, R-C),
+    M is N-1,
+    constraints(M, Row, Rs, Cs).
+
+queens([], _, []).
+queens([C|Cs], Row0, [Col|Solution]) :-
+    Row is Row0+1,
+    select(Col-Vars, [C|Cs], Board),
+    arg(Row, Vars, Row-Row),
+    queens(Board, Row, Solution).
+                        </textarea>
+                        <button type="submit">(Re)consult</button>
+                    </form>
+                </div>
     
-        const observer_config = { 
-                attributes: true, 
-                childList: true, 
-                subtree: true, 
-                characterData: true 
-            }               
-        const observer = new MutationObserver(
-										            (mutationList,observer) => console.log(mutationList)
-									           ).observe(window.document, observer_config)
 
-        </script>
-
-        <style>
-            html {
-                padding:40px;
-                font-family:monospace;
-                filter:invert(1);
-                background:black;
-            }    
-            body {
-                white-space:pre-wrap;
-            }/style>
-    </head>
-
-    <body contenteditable>
-
-
-        :- use_module(library(lists)).
-
-        %%    queens(+N, -Queens) is nondet.
-        %
-        %   @param  Queens is a list of column numbers for placing the queens.
-        %   @author Richard A. O'Keefe (The Craft of Prolog)
-
-        queens(N, Queens) :-
-            length(Queens, N),
-            board(Queens, Board, 0, N, _, _),
-            queens(Board, 0, Queens).
-
-        board([], [], N, N, _, _).
-        board([_|Queens], [Col-Vars|Board], Col0, N, [_|VR], VC) :-
-            Col is Col0+1,
-            functor(Vars, f, N),
-            constraints(N, Vars, VR, VC),
-            board(Queens, Board, Col, N, VR, [_|VC]).
-
-        constraints(0, _, _, _) :- !.
-        constraints(N, Row, [R|Rs], [C|Cs]) :-
-            arg(N, Row, R-C),
-            M is N-1,
-            constraints(M, Row, Rs, Cs).
-
-        queens([], _, []).
-        queens([C|Cs], Row0, [Col|Solution]) :-
-            Row is Row0+1,
-            select(Col-Vars, [C|Cs], Board),
-            arg(Row, Vars, Row-Row),
-            queens(Board, Row, Solution).
-    </body>
+ <pre class="output" id="output"></pre>
+                    <form class="input" id="input">
+                        <input type="text" name="query">
+                    </form>
+	</body>
 </html>
