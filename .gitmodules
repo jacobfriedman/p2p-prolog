@@ -1,3 +1,0 @@
-[submodule "libp2p"]
-	path = libp2p
-	url = https://github.com/libp2p/js-libp2p

@@ -2,6 +2,22 @@
 
 ```node index.mjs --experimental-modules```
 
+## Docker
+
+NOTE: -t -i allows for the interactive shell (so CTRL-C can work).
+
+```
+docker build .
+docker run -t -i <build hash>
+
+# Ctrl-C? ...
+
+docker ps
+docker stop <container_id>
+```
+
+the 
+
 ## Browser
 
 - [ ] Hook up LibP2P
