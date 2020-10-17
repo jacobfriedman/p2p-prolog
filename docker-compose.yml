@@ -1,0 +1,7 @@
+version: "3.8"
+services:
+    star-signal:
+        image:    node:alpine
+        ports:    9999
+        build:    https://github.com/libp2p/js-libp2p-webrtc-star
+        command:  star-signal --port=9999 --host=127.0.0.1

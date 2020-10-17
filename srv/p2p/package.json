@@ -3,11 +3,13 @@
   "version": "1.0.0",
   "description": "",
   "dependencies": {
+    "electron-webrtc": "^0.3.0",
     "libp2p": "^0.29.0",
     "libp2p-bootstrap": "^0.12.1",
     "libp2p-mplex": "^0.10.0",
     "libp2p-noise": "^2.0.1",
     "libp2p-tcp": "^0.15.1",
+    "libp2p-webrtc-star": "^0.20.1",
     "multiaddr": "^8.0.0",
     "wrtc": "^0.4.6"
   },

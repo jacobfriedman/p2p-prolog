@@ -6,9 +6,14 @@
 
 NOTE: -t -i allows for the interactive shell (so CTRL-C can work).
 
+*Multiple Contexts*
+See <https://www.docker.com/blog/multi-arch-build-and-images-the-simple-way/>
+
+
+
 ```
 docker build .
-docker run -t -i <build hash>
+docker run --build-arg ARCH=amd64 -i -t <build hash> 
 
 # Ctrl-C? ...
 
@@ -27,6 +32,8 @@ future: use Krustlet to handle WASMs with Kubernetes?
 
 
 ## Node
+
+Following <https://github.com/ipfs/js-ipfs/issues/2779>...
 
 - [ ] Hook up LibP2P
 - [ ] Establish LibP2P AF_UNIX [IPC] methods with <https://nodejs.org/api/net.html#net_ipc_support>
