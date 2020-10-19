@@ -5,9 +5,6 @@
 ########################################################   
 
 
-COPY 				docker-compose.yml /
-
-
 ########################################################   		
 
 						# Install Packages #
@@ -19,8 +16,6 @@ COPY 				docker-compose.yml /
 RUN       	apt-get update && apt-get install -y \ 
 						git \
 						&& rm -rf /var/lib/apt/lists/*
-
-RUN 				npm install -g docker-compose 
 
 ########################################################   		
 

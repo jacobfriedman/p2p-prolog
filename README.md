@@ -4,24 +4,25 @@
 
 ## Docker
 
-NOTE: -t -i allows for the interactive shell (so CTRL-C can work).
-
-*Multiple Contexts*
-See <https://www.docker.com/blog/multi-arch-build-and-images-the-simple-way/>
-
-
+### First time?
+```
+docker run --rm -it -v $PWD:$PWD -w $PWD -v /var/run/docker.sock:/var/run/docker.sock docker/compose:1.24.0 up
+```
+### Need to Rebuild? use 
 
 ```
-docker build .
-docker run --build-arg ARCH=amd64 -i -t <build hash> 
-
-# Ctrl-C? ...
-
-docker ps
-docker stop <container_id>
+docker-compose build
+```
+or
+```
+docker-compose up --build
 ```
 
-the 
+### Todo
+
+- [ ] Private Github URLs for build (...change star-signal build)
+- [ ] Multiple Contexts/Deployments <https://www.docker.com/blog/multi-arch-build-and-images-the-simple-way/>
+- [ ] Private Keysets for Deployments
 
 ## Browser
 
@@ -29,7 +30,6 @@ the
 - [X] Grab from the swipl-wasm example index
 
 future: use Krustlet to handle WASMs with Kubernetes?
-
 
 ## Node
 
