@@ -15,7 +15,7 @@ sudo pip3 install docker-compose
 
 ```
 git clone https://github.com/jacobfriedman/p2p-prolog && cd p2p-prolog
-docker-compose up --build
+docker-compose up --build -d
 ```
 
 ### Need to Rebuild? use 
@@ -23,11 +23,10 @@ docker-compose up --build
 ```
 docker-compose up --build
 ```
-*Need to delete the docker builds?*
+*Need to clean the ridiculously large docker cache?*
 ```
 docker system prune -a
 ```
-
 ### Todo
 
 - [ ] Private Github URLs for build (...change star-signal build)
