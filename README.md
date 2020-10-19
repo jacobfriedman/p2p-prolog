@@ -1,44 +1,29 @@
 # p2p-prolog
 
-```node index.mjs --experimental-modules```
 
 ## Docker
 
-```
-
-curl -fsSL https://get.docker.com -o get-docker.sh
-sudo sh get-docker.sh
+You'll need docker-compose to run this (.yml version 3.3).
 
 ```
-
-### First time?
-```
-git clone https://github.com/jacobfriedman/p2p-prolog && cd p2p-prolog
-
 sudo apt update
 sudo apt install -y python3-pip libffi-dev
 sudo pip3 install docker-compose
-
 ```
 
+### First time?
 
 ```
-docker-compose build && docker-compose up -d
+git clone https://github.com/jacobfriedman/p2p-prolog && cd p2p-prolog
+docker-compose up --build
 ```
 
 ### Need to Rebuild? use 
 
 ```
-docker-compose build
-```
-or
-```
 docker-compose up --build
 ```
-
-### Need to delete the docker builds?
-
-Use 
+*Need to delete the docker builds?*
 ```
 docker system prune -a
 ```
