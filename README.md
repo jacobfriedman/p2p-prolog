@@ -4,10 +4,28 @@
 
 ## Docker
 
+```
+
+curl -fsSL https://get.docker.com -o get-docker.sh
+sudo sh get-docker.sh
+
+```
+
 ### First time?
 ```
-docker run --rm -it -v $PWD:$PWD -w $PWD -v /var/run/docker.sock:/var/run/docker.sock docker/compose:1.24.0 up
+git clone https://github.com/jacobfriedman/p2p-prolog && cd p2p-prolog
+
+sudo apt update
+sudo apt install -y python3-pip libffi-dev
+sudo pip3 install docker-compose
+
 ```
+
+
+```
+docker-compose build && docker-compose up -d
+```
+
 ### Need to Rebuild? use 
 
 ```
@@ -16,6 +34,13 @@ docker-compose build
 or
 ```
 docker-compose up --build
+```
+
+### Need to delete the docker builds?
+
+Use 
+```
+docker system prune -a
 ```
 
 ### Todo
