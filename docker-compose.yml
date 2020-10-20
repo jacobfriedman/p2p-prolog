@@ -5,14 +5,14 @@ services:
         ports:      
             - 127.0.0.1:9999:9999
         build:      github.com/libp2p/js-libp2p-webrtc-star
-        entrypoint: ['node', 'src/sig-server/bin.js', '--port=9999', '> peers']
+        entrypoint: ['node', 'src/sig-server/bin.js', '--port=9999', '> peer']
         volumes:    
             -       ./srv:/srv
     p2p-prolog:
         depends_on: [star-signal]
         build:      .
         ports:      
-            - 127.0.0.1:9999:9999
+            - 80
         expose:     [9999]        
         volumes:    
             -       ./:/srv
