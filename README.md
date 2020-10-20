@@ -1,32 +1,25 @@
-# p2p-prolog
+# P2P Prolog
 
+## Install Docker & Docker-Compose
 
-## Docker
-
-You'll need docker-compose to run this (.yml version 3.3).
-
+You'll need docker-compose to run the service (version 3.3). 
 ```
-sudo apt update
-sudo apt install -y python3-pip libffi-dev
-sudo pip3 install docker-compose
+# A simple Docker and Docker Compose install script for Ubuntu
+# From <https://gist.github.com/EvgenyOrekhov/1ed8a4466efd0a59d73a11d753c0167b>
+sh install-docker.sh
 ```
 
-### First time?
-
+### Build the Docker-Compose File
 ```
-git clone https://github.com/jacobfriedman/p2p-prolog && cd p2p-prolog
-docker-compose up --build -d
+sudo docker-compose up --build -d
 ```
 
-### Need to Rebuild? use 
+Rebuild the compose with `docker-compose up --build`. 
+If you're devving, you may need to clean the ridiculously large 
+docker cache once in a while with `docker system prune -a`.
 
-```
-docker-compose up --build
-```
-*Need to clean the ridiculously large docker cache?*
-```
-docker system prune -a
-```
+***
+
 ### Todo
 
 - [ ] Private Github URLs for build (...change star-signal build)

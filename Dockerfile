@@ -22,7 +22,7 @@ RUN       	apt-get update && apt-get install -y \
 
 ##########  Expose Ports
 
-EXPOSE 			9090
+EXPOSE 			9999
 
 ##########  Git
 

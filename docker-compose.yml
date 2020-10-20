@@ -3,9 +3,9 @@ services:
     star-signal:
         image:      node:alpine
         ports:      
-            - 127.0.0.1:9999:9999
+            - 9999:9999
         build:      github.com/libp2p/js-libp2p-webrtc-star
-        entrypoint: ['node', 'src/sig-server/bin.js', '--port=9999', '> peer']
+        entrypoint: ['node', 'src/sig-server/bin.js', '--port=9999', '> peers']
         volumes:    
             -       ./srv:/srv
     p2p-prolog:
