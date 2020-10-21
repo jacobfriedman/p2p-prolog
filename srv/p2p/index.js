@@ -20,10 +20,11 @@ const multiaddr 		= require('multiaddr')
 
 //////////////// INITIALIZE  ////////////////////////
 
-
+/*
 const peers = [
-	'/ip4/3.96.201.235/tcp/9999/wss/p2p-webrtc-star/QmWyzTZ8rKHiafsRUGtco41fs4hBjWo3VtPXi2EES7UtKH'
+	'/ip4/3.96.201.235/tcp/9999/wss/p2p-webrtc-star/QmQwA7Wxnf2G756AUtZw9qFWtNb29ARgZieb3AtL8GGc4n'
 ]
+*/
 
 const main = async () => {
 
@@ -31,51 +32,46 @@ const main = async () => {
 				addresses:      {
 						// add a listen address (localhost) to accept TCP connections on a random port
 						listen: [
-							'/ip4/0.0.0.0/tcp/9999/ws'
+							'/ip4/0.0.0.0/tcp/0'
 						],
 
 				},
 				modules:        {
-						transport: [WebSockets, WebRTCStar],
+						transport: [WebSockets, TCP],
 						connEncryption: [NOISE],
 						streamMuxer: [MPLEX],
-						peerDiscovery: [Bootstrap, MulticastDNS]
+						peerDiscovery: [MulticastDNS]
 				},
 				config: {
 				  peerDiscovery: {
-					  autoDial: true, // Auto connect to discovered peers (limited by ConnectionManager minConnections)
-						  // The `tag` property will be searched when creating the instance of your Peer Discovery service.
-						  [Bootstrap.tag]: {
-								enabled: true,
-								list: peers // provide array of multiaddrs
-						  },
-	            [MulticastDNS.tag]: {
-				        interval: 1000,
-				        enabled: true
-				      },
-				      [WebRTCStar.tag]: {
+			        bootstrap: {
+			          interval: 60e3,
+			          enabled: true,
+			          list: peers
+			        },
+	            mdns: {
+				        interval: 20e3,
 				        enabled: true
 				      }
 					}
 				}
 		})
 
+		node.connectionManager.on('peer:connect', (connection) => {
+	    console.log('Connection established to:', connection.remotePeer.toB58String())	// Emitted when a peer has been found
+	  })
+
+	  node.on('peer:discovery', (peerId) => {
+	    console.log('Discovered:', peerId.toB58String())
+	  })
+
 		// start libp2p
 		let output = await node.start()
-		console.log('🌈 libp2p has started 🌈\n')
+		console.log('🌈 libp2p has started: 🌈')
 
-	  // print out listening addresses
-	  console.log('listening on addresses:')
 	  node.multiaddrs.forEach(addr => {
 	    console.log(`${addr.toString()}/p2p/${node.peerId.toB58String()}`)
 	  })
-			
-		node.connectionManager.on('peer:connect', (connection) => {
-		  console.log('Connection established to:', connection.remotePeer.toB58String())	// Emitted when a new connection has been created
-		})
-		node.on('peer:discovery', (peerId) => {
-		  console.log('Discovered:', peerId.toB58String())
-		})
 
 		const stop = async () => {
 		// stop libp2p
