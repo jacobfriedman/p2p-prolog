@@ -9,6 +9,7 @@ const TCP 					= require('libp2p-tcp')
 const NOISE 				= require('libp2p-noise')
 const MPLEX 				= require('libp2p-mplex')
 const Bootstrap 		= require('libp2p-bootstrap')
+const WebRTCStar 		= require('libp2p-webrtc-star')
 const WebSockets 		= require('libp2p-websockets')
 const MulticastDNS	= require('libp2p-mdns')
 
@@ -21,10 +22,8 @@ const multiaddr 		= require('multiaddr')
 
 
 const peers = [
-	'/ip4/3.96.201.235/tcp/9999/wss/p2p-webrtc-star/'
+	'/ip4/3.96.201.235/tcp/9999/wss/p2p-webrtc-star/QmWyzTZ8rKHiafsRUGtco41fs4hBjWo3VtPXi2EES7UtKH'
 ]
-
-
 
 const main = async () => {
 
@@ -32,16 +31,15 @@ const main = async () => {
 				addresses:      {
 						// add a listen address (localhost) to accept TCP connections on a random port
 						listen: [
-							'/ip4/0.0.0.0/tcp/9999',
 							'/ip4/0.0.0.0/tcp/9999/ws'
 						],
 
 				},
 				modules:        {
-						transport: [WebSockets],
+						transport: [WebSockets, WebRTCStar],
 						connEncryption: [NOISE],
 						streamMuxer: [MPLEX],
-						//peerDiscovery: [Bootstrap]
+						peerDiscovery: [Bootstrap, MulticastDNS]
 				},
 				config: {
 				  peerDiscovery: {
@@ -53,6 +51,9 @@ const main = async () => {
 						  },
 	            [MulticastDNS.tag]: {
 				        interval: 1000,
+				        enabled: true
+				      },
+				      [WebRTCStar.tag]: {
 				        enabled: true
 				      }
 					}
