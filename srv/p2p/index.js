@@ -9,6 +9,7 @@ const TCP 					= require('libp2p-tcp')
 const NOISE 				= require('libp2p-noise')
 const MPLEX 				= require('libp2p-mplex')
 const Bootstrap 		= require('libp2p-bootstrap')
+const WebSockets 		= require('libp2p-websockets')
 const WebRTCStar		= require('libp2p-webrtc-star')
 
 //////////////// 		LIBP2P Helpers
@@ -23,42 +24,42 @@ const multiaddr 		= require('multiaddr')
 
 const transportKey = WebRTCStar.prototype[Symbol.toStringTag]
 
-/*,
-
-BOOTSTRAP Peers w/ libp2p
-
-				config: {
-								peerDiscovery: {
-								  autoDial: true, // Auto connect to discovered peers (limited by ConnectionManager minConnections)
-									  // The `tag` property will be searched when creating the instance of your Peer Discovery service.
-									  // The associated object, will be passed to the service when it is instantiated.
-									  [Bootstrap.tag]: {
-										enabled: true,
-										list: bootstrapPeers // provide array of multiaddrs
-									  }
-								}
-							  }*/
-
+const peers = [
+	'/ip4/3.96.201.235/tcp/9999/ws/p2p-webrtc-star/'
+]
 
 const main = async () => {
 
 		const node = await Libp2p.create({
 				addresses:      {
 						// add a listen address (localhost) to accept TCP connections on a random port
-						listen: ['/ip4/0.0.0.0/tcp/9999']
+						listen: [
+							'/ip4/0.0.0.0/tcp/9999',
+							'/ip4/0.0.0.0/tcp/9999/ws'
+						],
+
 				},
 				modules:        {
-						transport: [WebRTCStar],
+						transport: [WebRTCStar, WebSockets],
 						connEncryption: [NOISE],
-						streamMuxer: [MPLEX]
+						streamMuxer: [MPLEX],
+						peerDiscovery: [Bootstrap]
 				},
 				config: {
 			    transport: {
 			      [transportKey]: {
 			        wrtc // You can use `wrtc` when running in Node.js
 			      }
-			    }
-			  }	
+			    },
+				  peerDiscovery: {
+					  autoDial: true, // Auto connect to discovered peers (limited by ConnectionManager minConnections)
+						  // The `tag` property will be searched when creating the instance of your Peer Discovery service.
+						  [Bootstrap.tag]: {
+								enabled: true,
+								list: peers // provide array of multiaddrs
+						  }
+					}
+				}
 		})
 
 		// print out listening addresses
@@ -77,8 +78,9 @@ const main = async () => {
 				})
 
 		// start libp2p
-		await node.start()
+		let output = await node.start()
 		console.log('libp2p has started')
+
 
 
 		const stop = async () => {
