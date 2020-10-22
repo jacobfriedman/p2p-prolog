@@ -20,11 +20,9 @@ const multiaddr 		= require('multiaddr')
 
 //////////////// INITIALIZE  ////////////////////////
 
-/*
-const peers = [
-	'/ip4/3.96.201.235/tcp/9999/wss/p2p-webrtc-star/QmQwA7Wxnf2G756AUtZw9qFWtNb29ARgZieb3AtL8GGc4n'
-]
-*/
+
+const peers = process.argv;
+
 
 const main = async () => {
 
