@@ -24,7 +24,7 @@ docker cache once in a while with `docker system prune -a`.
 
 - [ ] Private Github URLs for build (...change star-signal build)
 - [ ] Multiple Contexts/Deployments <https://www.docker.com/blog/multi-arch-build-and-images-the-simple-way/>
-- [ ] Private Keysets for Deployments
+- [X] Private Keysets for Deployments
 
 ## Browser
 
