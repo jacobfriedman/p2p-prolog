@@ -37,18 +37,18 @@ const main = async () => {
 
 	  if (fs.existsSync(identityFilePath)) {
 	   	identity = JSON.parse(fs.readFileSync('.identity-client',{ encoding:'utf8'} ));
-	   	console.info(` 🔑 ID (preset): \t ${identity.id.id}>`)
+	   	console.info(` 🔑 ID (preset): \t ${identity.id.id}`)
 	  } else {
 	  	identity = await PeerInfo.create()
 			await fs.writeFileSync('.identity-client', JSON.stringify(identity, null, 2))
-			console.info(` 🔑 ID (initial): \t ${identity.id.id}>`)
+			console.info(` 🔑 ID (initial): \t ${identity.id.id}`)
 	  }
 
 		const node = await Libp2p.create({
 				addresses:      {
 						// add a listen address (localhost) to accept TCP connections on a random port
 						listen: [
-							'/ip4/0.0.0.0/tcp/9998/wss/p2p-webrtc-star',
+							'/ip4/0.0.0.0/tcp/9998/ws/p2p-webrtc-star',
 					//		'/ip4/0.0.0.0/tcp/9999/wss/p2p-webrtc-star'
 						],
 				},
