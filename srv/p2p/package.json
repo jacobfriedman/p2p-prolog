@@ -18,9 +18,6 @@
     "wrtc": "^0.4.6"
   },
   "devDependencies": {},
-  "scripts": {
-    "start": "node index.js"
-  },
   "author": "",
   "license": "ISC"
 }

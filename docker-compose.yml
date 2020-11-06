@@ -1,26 +1,27 @@
 version: "3.3"
 services:
-    p2p-prolog:
-        build:      .    
-        image: p2p-prolog:base
+    signaller:
+        build: .
         ports:      
             - 9999
             - 9998
         expose:
             - 9999
-            - 9998     
-        volumes:    
-            -       ./:/srv
-        command: node ./srv/p2p/signaller.js
-    p2p-prolog-signaller:
-        depends_on: [p2p-prolog]
-        image: p2p-prolog:base
+            - 9998
+        volumes:
+            - local:/usr/src/app/
+        command: node signaller.js
+    plient:
+        depends_on: [signaller]
+        build: .
         ports:      
             - 9999
             - 9998
-         expose:
+        expose:
             - 9999
-            - 9998     
-        volumes:    
-            -       ./:/srv
-        command: node ./srv/p2p/client.js
+            - 9998       
+        volumes:
+            - local:/usr/src/app/
+        command: node client.js
+volumes:
+     local: 

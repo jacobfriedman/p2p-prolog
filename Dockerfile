@@ -1,6 +1,6 @@
 ########################################################
 
-               FROM base
+               FROM node:14
 
 ########################################################    		
 
@@ -31,8 +31,7 @@ RUN 				mkdir app
 WORKDIR 		/usr/src/app
 RUN 				git clone https://github.com/jacobfriedman/p2p-prolog.git .
 
-##########  Run Instance
+##########  Build Instance
 
 WORKDIR 		/usr/src/app/srv/p2p
 RUN 				npm i
-WORKDIR 		/usr/src/app
