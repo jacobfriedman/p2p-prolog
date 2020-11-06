@@ -1,6 +1,6 @@
 ########################################################
 
-               FROM node:14
+               FROM base
 
 ########################################################    		
 
@@ -22,7 +22,7 @@ RUN       	apt-get update && apt-get install -y \
 
 ##########  Expose Ports
 
-EXPOSE 			9998 9999
+EXPOSE 			9998/tcp 9998/udp 9999/tcp 9999/udp
 
 ##########  Git
 
@@ -35,8 +35,4 @@ RUN 				git clone https://github.com/jacobfriedman/p2p-prolog.git .
 
 WORKDIR 		/usr/src/app/srv/p2p
 RUN 				npm i
-CMD					node ./index.js
-
-
-
-
+WORKDIR 		/usr/src/app
