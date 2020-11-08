@@ -35,4 +35,5 @@ RUN 				git clone https://github.com/jacobfriedman/p2p-prolog.git .
 
 WORKDIR 		/usr/src/app/srv/www
 RUN 				npm i
+RUN 				ls -l
 CMD					node server.js
