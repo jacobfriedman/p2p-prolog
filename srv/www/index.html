@@ -1,10 +1,23 @@
-<html>
-	<head>
-	<title>P2P Prolog</title>
-	<link rel="icon" href="https://www.swi-prolog.org/icons/favicon.ico" />
+<!DOCTYPE html>
 
-	<style>
-            body { font-family: sans-serif; }
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <title>🦉⇄🦉 P2PLog</title>
+
+
+  <style>html {
+              background:black;
+            }
+            body { font-family: mono;
+
+              filter:invert(1);
+
+            }
+            invert {
+              filter:invert(1);
+            }
             .app { display: flex; }
             .console, .editor { flex: 1; box-sizing: border-box; padding: 10px; }
             .console { max-width: 600px; }
@@ -12,14 +25,38 @@
             input, textarea { box-sizing: border-box; width: 100%; }
             .loader { animation: blinker 1s linear infinite; font-size: 70px; display: none; }
 
-        </style>
+            #libp2poutput, #libp2pstatus {
+              border:1px solid red;
+              overflow-y:scroll;
+              height:80px;
+              display:block;
+            }</style>
+        
+  </head>
+
+  <body>
+    <h1 id="status">
+      <pre>
+___  __   ___    ___  ____ ____ _    ____ ____
+|--'  /_  |--'   |--' |--< [__] |___ [__] |__,     
+</pre>
 
 
+    </h1>
+      <p>
+      Visit /&laquo;id&raquo;  where id = docker-compose log:<br>
+      ┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈<br>
+      <invert>🌐</invert> Your Address:   /ip4/0.0.0.0/tcp/9998/ws/p2p-webrtc-star/p2p/&laquo;id&raquo;<br>
+      ┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈<br>
+      </p>
+    <main>
+        <pre id="libp2pstatus"></pre>
+      <pre id="libp2poutput"></pre>
+    </main>
+    <script src="/www.e31bb0bc.js"></script>
+  <script type="module">
 
-
-	<script type="module">
-
-		import SWIPL from './swipl-web.js';
+    import SWIPL from './swipl-web.js';
 
      let bindings = null;
             let stdin = '';
@@ -110,26 +147,26 @@
             };
 
 
-	   // INIT
-	   (async () => {
-	   	const swipl = SWIPL({
-	     			arguments:['swipl','-x', 'wasm-preload/boot.prc', '--nosignals'],
-	     			print: print,
-	          printErr: printErr,
-	     			preRun: [module => module.FS.init(readStdin)],
+     // INIT
+     (async () => {
+      const swipl = SWIPL({
+            arguments:['swipl','-x', 'wasm-preload/boot.prc', '--nosignals'],
+            print: print,
+            printErr: printErr,
+            preRun: [module => module.FS.init(readStdin)],
 
-	     		}).then(module => {
+          }).then(module => {
 
-	       		console.log({module})
+            console.log({module})
 
-	       		bindings = createBindings(module);
+            bindings = createBindings(module);
 
-	          // Initialise SWI-Prolog.
-	          initialise(bindings, module);
+            // Initialise SWI-Prolog.
+            initialise(bindings, module);
 
 
 
-	      input.addEventListener('submit', (e) => {
+        input.addEventListener('submit', (e) => {
                 e.preventDefault();
                 query(bindings, e.target.elements.query.value);
                 e.target.elements.query.value = '';
@@ -142,39 +179,25 @@
             }, false);
 
 
-	     	});
-	   })();
-	   // END INIT
+        });
+     })();
+     // END INIT
 
             
-	const observer = new MutationObserver((mutationList,observer) => console.log(mutationList)
-						           ).observe(
-											           window.document, 
-											           { 
-													        attributes: true, 
-													        childList: true, 
-													        subtree: true, 
-													        characterData: true 
-																} 
-	    )
+  const observer = new MutationObserver((mutationList,observer) => console.log(mutationList)
+                       ).observe(
+                                 window.document, 
+                                 { 
+                                  attributes: true, 
+                                  childList: true, 
+                                  subtree: true, 
+                                  characterData: true 
+                                } 
+      )
 
-	</script>
+  </script>
 
-	<style>
-	    html {
-	        padding:40px;
-	        font-family:monospace;
-	       /* filter:invert(1);
-	        background:black;
-	        */
-	    }    
-	    body {
-	        white-space:pre-wrap;
-	    }
-	    </style>
-	</head>
-
-	<body>
+  
 
 
             <div class="app">
@@ -186,13 +209,13 @@
                 </div>
                 <div class="editor">
                     <form id="editor">
-                        <textarea name="file" rows="50">
+                        <textarea name="file" rows="40">
 :- use_module(library(lists)).
 
 %%    queens(+N, -Queens) is nondet.
 %
-%	@param	Queens is a list of column numbers for placing the queens.
-%	@author Richard A. O'Keefe (The Craft of Prolog)
+% @param  Queens is a list of column numbers for placing the queens.
+% @author Richard A. O'Keefe (The Craft of Prolog)
 
 queens(N, Queens) :-
     length(Queens, N),
@@ -222,11 +245,8 @@ queens([C|Cs], Row0, [Col|Solution]) :-
                         <button type="submit">(Re)consult</button>
                     </form>
                 </div>
-    
 
- <pre class="output" id="output"></pre>
-                    <form class="input" id="input">
-                        <input type="text" name="query">
-                    </form>
-	</body>
+
+  </div></body>
+
 </html>
