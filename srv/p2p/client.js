@@ -28,12 +28,15 @@ const transportKey = WebRTCStar.prototype[Symbol.toStringTag]
 
 
 const main = async () => {
+		
+		console.info(`\n`)
 
 		////////// Create Identity File & Save Locally
 
 		let identityFilePath = '.identity-client',
 				identity 
-		// 
+		
+		// TODO: Abstract into identity.js file
 
 	  if (fs.existsSync(identityFilePath)) {
 	   	identity = JSON.parse(fs.readFileSync('.identity-client',{ encoding:'utf8'} ));
