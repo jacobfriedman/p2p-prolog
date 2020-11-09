@@ -27,15 +27,14 @@ EXPOSE 			9998/udp
 EXPOSE 			9999/tcp 
 EXPOSE 			9999/udp
 
-##########  Git
+##########  Write Files
 
 WORKDIR			/usr/src
 RUN 				mkdir app
 WORKDIR 		/usr/src/app
-RUN 				git clone https://github.com/jacobfriedman/p2p-prolog.git .
+COPY 				. .
 
 ##########  Build Instance
 
-WORKDIR 		/usr/src/app/srv/p2p
 RUN 				npm i
 CMD					node

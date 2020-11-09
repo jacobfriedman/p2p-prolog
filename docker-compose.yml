@@ -1,6 +1,9 @@
 version: "3.3"
 services:
+    nodejs-identity-generator:
+        build: ./src/identity
     nodejs-libp2p-signaller:
+        depends_on: [identity-generator]
         build: ./srv/p2p
         ports:      
             - "0.0.0.0:9998:9998/udp"
@@ -15,7 +18,6 @@ services:
             - "0.0.0.0:9999:9999/udp"
         command: node client.js
         network_mode: "host"
-
     nodejs-http-server:
         depends_on: [nodejs-libp2p-client]
         build: ./srv/www

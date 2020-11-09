@@ -24,16 +24,9 @@ RUN       	apt-get update && apt-get install -y \
 
 EXPOSE 			80/tcp
 
-##########  Git
-
-WORKDIR			/usr/src
-RUN 				mkdir app
-WORKDIR 		/usr/src/app
-RUN 				git clone https://github.com/jacobfriedman/p2p-prolog.git .
+COPY . .
 
 ##########  Build Instance
 
-WORKDIR 		/usr/src/app/srv/www
 RUN 				npm i
-RUN 				ls -l
 CMD					node server.js

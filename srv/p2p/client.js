@@ -17,7 +17,6 @@ const MulticastDNS	= require('libp2p-mdns')
 //////////////// 		LIBP2P Helpers
 const wrtc 					= require('wrtc')
 const multiaddr 		= require('multiaddr')
-const PeerInfo 			= require('peer-info')
 
 //////////////// 		WebRTC Signalling Server
 const Signaller 		= require('libp2p-webrtc-star/src/sig-server')
@@ -51,7 +50,7 @@ const main = async () => {
 				addresses:      {
 						// add a listen address (localhost) to accept TCP connections on a random port
 						listen: [
-							'/ip4/0.0.0.0/tcp/9998/ws/p2p-webrtc-star',
+							'/ip4/0.0.0.0/tcp/9998/wss/p2p-webrtc-star',
 					//		'/ip4/0.0.0.0/tcp/9999/wss/p2p-webrtc-star'
 						],
 				},
@@ -93,7 +92,7 @@ const main = async () => {
 		          interval: 60e3,
 		          enabled: true,
 		          list: [
-		            `/ip4/0.0.0.0/tcp/9998/ws/p2p-webrtc-star/p2p/${identity.id.id}`,
+		            `/ip4/0.0.0.0/tcp/9998/wss/p2p-webrtc-star/p2p/${identity.id.id}`,
 		          ]
 		        },
 		      },

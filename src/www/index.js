@@ -6,6 +6,14 @@ import { NOISE } from 'libp2p-noise'
 import Mplex from 'libp2p-mplex'
 import Bootstrap from 'libp2p-bootstrap'
 
+
+function getURLParameter(name) {
+    var match = RegExp('[?&]' + name + '=([^&]*)').exec(window.location.search);
+    return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+}
+
+
+
 document.addEventListener('DOMContentLoaded', async () => {
   // Create our libp2p node
   const libp2p = await Libp2p.create({
