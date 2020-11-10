@@ -78,7 +78,7 @@ const main = async () => {
 		          enabled: true,
 		          list: [
 		            `/ip4/0.0.0.0/tcp/9998/wss/p2p-webrtc-star/p2p/${identity.id.id}`,
-		            ...peers
+		            ...peers.list
 		          ]
 		        },
 		      },

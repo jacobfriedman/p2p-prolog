@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', async () => {
           enabled: true,
           list: [
             `/ip4/0.0.0.0/tcp/9998/ws/p2p-webrtc-star/p2p/${identity.id}`,
-            ...peers
+            ...peers.list
           ]
         }
       }
