@@ -35,6 +35,7 @@ WORKDIR 		/usr/src/app
 COPY 				. .
 COPY				../../.identity-client.json .
 COPY				../../.identity-signaller.json .
+COPY				../../.peers.json .
 
 ##########  Build Instance
 
