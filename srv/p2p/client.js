@@ -30,6 +30,7 @@ const main = async () => {
 		console.info(`\n`)
 
 	   	const identity = JSON.parse(fs.readFileSync('.identity.json',{ encoding:'utf8'} ));
+	   	const peers = 	 JSON.parse(fs.readFileSync('.peers.json',{ encoding:'utf8'} ));
 	   	console.info(` 🔑 ID: \t ${identity.id}`)
 
 		const node = await Libp2p.create({
@@ -77,6 +78,7 @@ const main = async () => {
 		          enabled: true,
 		          list: [
 		            `/ip4/0.0.0.0/tcp/9998/wss/p2p-webrtc-star/p2p/${identity.id.id}`,
+		            ...peers
 		          ]
 		        },
 		      },

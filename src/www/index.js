@@ -9,9 +9,6 @@ import Bootstrap from 'libp2p-bootstrap'
 import identity from '.identity.json'
 import peers  from '.peers.json'
 
-console.log({identity}, {peers})
-
-
 document.addEventListener('DOMContentLoaded', async () => {
   // Create our libp2p node
   const libp2p = await Libp2p.create({
@@ -37,12 +34,7 @@ document.addEventListener('DOMContentLoaded', async () => {
           enabled: true,
           list: [
             `/ip4/0.0.0.0/tcp/9998/ws/p2p-webrtc-star/p2p/${identity.id}`,
-            /*
-            '/dnsaddr/bootstrap.libp2p.io/p2p/QmbLHAnMoJPWSCR5Zhtx6BHJX9KiKNN6tpvbUcqanj75Nb',
-            '/dnsaddr/bootstrap.libp2p.io/p2p/QmZa1sAxajnQjVM8WjWXoMbmPd7NsWhfKsPkErzpm9wGkp',
-            '/dnsaddr/bootstrap.libp2p.io/p2p/QmQCU2EcMqAqQPR2i9bChDtGNJchTbq5TbXJJ16u19uLTa',
-            '/dnsaddr/bootstrap.libp2p.io/p2p/QmcZf59bWwK5XFi76CZX8cbJ4BhTzzA3gU1ZjYZcYW3dwt'
-            */
+            ...peers
           ]
         }
       }
