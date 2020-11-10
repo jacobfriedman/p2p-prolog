@@ -1,6 +1,8 @@
 **/node_modules
 .identity.json
+.peers.json
 **/.cache
 **/build
 srv/www/app*
+srv/www/www*
 srv/www/index.html
