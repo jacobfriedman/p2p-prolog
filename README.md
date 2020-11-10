@@ -15,9 +15,11 @@ sh install-docker.sh
 touch `.peers.json` (note: it's a hidden file) and add an array of peers e.g.
 
 ```
-[
-	/ipv4/x.x.x.x/etc...
-]
+{
+	"list": [
+		"/ip4/xx.xx.xx.xx/tcp/9998/ws/"
+	]
+}
 ```
 
 ```
