@@ -114228,7 +114228,13 @@ class Bootstrap extends EventEmitter {
 
 exports = module.exports = Bootstrap;
 exports.tag = 'bootstrap';
-},{"peer-id":"node_modules/peer-id/src/index.js","multiaddr":"node_modules/multiaddr/src/index.js","mafmt":"node_modules/mafmt/src/index.js","events":"node_modules/events/events.js","debug":"node_modules/debug/src/browser.js"}],"index.js":[function(require,module,exports) {
+},{"peer-id":"node_modules/peer-id/src/index.js","multiaddr":"node_modules/multiaddr/src/index.js","mafmt":"node_modules/mafmt/src/index.js","events":"node_modules/events/events.js","debug":"node_modules/debug/src/browser.js"}],".identity.json":[function(require,module,exports) {
+module.exports = {
+  "id": "QmTYDYBMG3zBeRFt81UjJh1ZYLjDiXaBhjtDN4eFDW7CQv",
+  "privKey": "CAASqAkwggSkAgEAAoIBAQC6p0KpU6CgmPZtmT1xGp6/cQd75TfqifvgID1+yr4/OmQGaoYVipSAqW+E8+8WOkKsNX0JWHbU7jOx69zzOtzwpPgXaPELn5M+rwp76BNjTmcAGGDFrSDawlRf8BXn40EScOnxAh7PU4RxWJh1RKoDJKlLrYxmljJlV68sR+FAGLFiaR7CxTleAfk9oAGbopTih4rIFo2FC+Gy0WRQnbmHWwZ+KSC5Oe8k52YCI3bgr3uf2EHcOANAWHRu2s71hU2TAdVAq3oYJ3DeaikimzmWV8JuLZbyuD0APZAsI6PiqnE6APO9ETOMz8pYo8MGiE7+lRVifRRqXI8N9oxdSbR/AgMBAAECggEBALk/z/VmPoGlzs4vzL84gF3YvGjGspxgnk9vMBlq9y6hsSx9BN7UT1by0u/NenlBEXMBEzv3RNlIIJ5xTTVKMoXT9TamvLWghu8rougfCT8CTU/W4hTPI1B6lmsxSUyAS9EVp9m/FP0IEua723Rn1aSQ+kVV1YbrgtD6Ga2FGZYWN5Qw923Zvy02uQRFZAgKurMUc+oBU3h6Ld57mgvpehbYt6r4Y7BKBF1EJiJDcoUBSyNVzbuUNpKCufm3UdkIIEgwiGWSiSEZIbRHStyIsrHdgtgbO8w27n1TgqYJq78hI65EVpVoWjV19RIyYF0APpSDDc0RWEbwfujlpxsLRCECgYEA8pgMchzK3O569e6/1ksvhW35xIQgpaHbomePqnfkEaReWNpJccMdaHvhqMy3u8ypKN3qczT236pU0X4ZWYuRbfbCndkiItSgmlgotd8DBJb57fKPjsWBVYGV7DNUzw5oH7ZdJZeHnuuRjs8T+fwM2mfw6pk2ADF32ehBO9mPK6MCgYEAxPfTgWgOLX5Zmc0cXrXLEdtcNABm024Rgd6LUsMYkElOhGjyYDodg+hzIAjwqcZRKnPWyVeqO2kT+dtbCQFArehoxrDPOuFX4XnksdwRrzu5oDGBhXqU3V7wsGMe1MtkZDAfRpdFOaSQcwQHtPSAmueF+nREjgazeKwXBEiGYXUCgYEAjXYsi75ObVaDTTXTl9pv85aVtwp1HyCrOqC5Heabj84RVi6z9SqZ03upswztdw149uOw+00/SF3C6AZoMdc5Dq59/h3H0he7L0WJN8S7tcl0JFT1cYOqT3opOnsUUUlNXnCxEGK0Ku+jCWuncnaP6CwESEjfPG2cPe05XPUYj5ECgYAm0LvSjaH1nyejIoOLuoGZNERYTxf0ZIV4tVV5as8FaBzcBR52jh1Q6Fb/oiNjIZzPI+LY7Li0WoHARFUNUjzfyKQVO7Sq4suBuJaz4i1t/fQXuInQtxZtBY+jAvWJc8eF4uHW9GqE8IQy1kF6jJBndma1s4HrBzEI/8jNZElvHQKBgBnWMdiuUhLeiz0RA6xWxhaXcNST7wUqVmM9q6KaQ3v96TQAWPGIX2phkYrk0DvIUv9J8H0iZ44a71tIK92kN06yAPZxucBiBdt6OWMb3OhKR00RL49EhJQZ87WUReZdnOrkLWWEaWnh5ZBNJMYL69vO66ty7qiEu1fXAn1Cu1yD",
+  "pubKey": "CAASpgIwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQC6p0KpU6CgmPZtmT1xGp6/cQd75TfqifvgID1+yr4/OmQGaoYVipSAqW+E8+8WOkKsNX0JWHbU7jOx69zzOtzwpPgXaPELn5M+rwp76BNjTmcAGGDFrSDawlRf8BXn40EScOnxAh7PU4RxWJh1RKoDJKlLrYxmljJlV68sR+FAGLFiaR7CxTleAfk9oAGbopTih4rIFo2FC+Gy0WRQnbmHWwZ+KSC5Oe8k52YCI3bgr3uf2EHcOANAWHRu2s71hU2TAdVAq3oYJ3DeaikimzmWV8JuLZbyuD0APZAsI6PiqnE6APO9ETOMz8pYo8MGiE7+lRVifRRqXI8N9oxdSbR/AgMBAAE="
+};
+},{}],"index.js":[function(require,module,exports) {
 "use strict";
 
 require("babel-polyfill");
@@ -114245,13 +114251,14 @@ var _libp2pMplex = _interopRequireDefault(require("libp2p-mplex"));
 
 var _libp2pBootstrap = _interopRequireDefault(require("libp2p-bootstrap"));
 
+var _identity = _interopRequireDefault(require("./.identity.json"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function getURLParameter(name) {
-  var match = RegExp('[?&]' + name + '=([^&]*)').exec(window.location.search);
-  return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
-}
-
+let queryDict = {};
+location.search.substr(1).split("&").forEach(function (item) {
+  queryDict[item.split("=")[0]] = item.split("=")[1];
+});
 document.addEventListener('DOMContentLoaded', async () => {
   // Create our libp2p node
   const libp2p = await _libp2p.default.create({
@@ -114273,7 +114280,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         // The associated object, will be passed to the service when it is instantiated.
         [_libp2pBootstrap.default.tag]: {
           enabled: true,
-          list: [`/ip4/${window.location.hostname}/tcp/9998/ws/p2p-webrtc-star/p2p${window.location.pathname}`
+          list: [`/ip4/${window.location.hostname}/tcp/9998/ws/p2p-webrtc-star/p2p/${_identity.default.id}`
           /*
           '/dnsaddr/bootstrap.libp2p.io/p2p/QmbLHAnMoJPWSCR5Zhtx6BHJX9KiKNN6tpvbUcqanj75Nb',
           '/dnsaddr/bootstrap.libp2p.io/p2p/QmZa1sAxajnQjVM8WjWXoMbmPd7NsWhfKsPkErzpm9wGkp',
@@ -114313,7 +114320,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   window.libp2p = libp2p;
 });
-},{"babel-polyfill":"node_modules/babel-polyfill/lib/index.js","libp2p":"node_modules/libp2p/src/index.js","libp2p-websockets":"node_modules/libp2p-websockets/src/index.js","libp2p-webrtc-star":"node_modules/libp2p-webrtc-star/src/index.js","libp2p-noise":"node_modules/libp2p-noise/dist/src/index.js","libp2p-mplex":"node_modules/libp2p-mplex/src/index.js","libp2p-bootstrap":"node_modules/libp2p-bootstrap/src/index.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"babel-polyfill":"node_modules/babel-polyfill/lib/index.js","libp2p":"node_modules/libp2p/src/index.js","libp2p-websockets":"node_modules/libp2p-websockets/src/index.js","libp2p-webrtc-star":"node_modules/libp2p-webrtc-star/src/index.js","libp2p-noise":"node_modules/libp2p-noise/dist/src/index.js","libp2p-mplex":"node_modules/libp2p-mplex/src/index.js","libp2p-bootstrap":"node_modules/libp2p-bootstrap/src/index.js","./.identity.json":".identity.json"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -114341,7 +114348,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "41275" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "46165" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

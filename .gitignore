@@ -1,5 +1,7 @@
 **/node_modules
-**/.identity
-.identity-signaller.json
-.identity-client.json
+.identity.json
+.peers.json
 **/.cache
+**/build
+srv/www/app*
+srv/www/index.html

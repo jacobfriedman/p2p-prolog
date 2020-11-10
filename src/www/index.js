@@ -6,15 +6,13 @@ import { NOISE } from 'libp2p-noise'
 import Mplex from 'libp2p-mplex'
 import Bootstrap from 'libp2p-bootstrap'
 
+import identity from './.identity.json'
 
 let queryDict = {};
 
 location.search.substr(1).split("&").forEach(function(item) {
   queryDict[item.split("=")[0]] = item.split("=")[1]
 })
-
-
-
 
 document.addEventListener('DOMContentLoaded', async () => {
   // Create our libp2p node
@@ -40,7 +38,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         [Bootstrap.tag]: {
           enabled: true,
           list: [
-            `/ip4/${window.location.hostname}/tcp/9998/ws/p2p-webrtc-star/p2p${window.location.pathname}`,
+            `/ip4/${window.location.hostname}/tcp/9998/ws/p2p-webrtc-star/p2p/${identity.id}`,
             /*
             '/dnsaddr/bootstrap.libp2p.io/p2p/QmbLHAnMoJPWSCR5Zhtx6BHJX9KiKNN6tpvbUcqanj75Nb',
             '/dnsaddr/bootstrap.libp2p.io/p2p/QmZa1sAxajnQjVM8WjWXoMbmPd7NsWhfKsPkErzpm9wGkp',

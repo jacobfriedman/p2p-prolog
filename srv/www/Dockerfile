@@ -1,32 +1,30 @@
 ########################################################
 
-               FROM node:14
+					FROM node:14
 
-########################################################    		
+########################################################    
+						
 
-						# Install Packages #
+# Update Instance
+# ┈┈┈┈┈┈┈┈┈┈┈┈┈┈
 
-########################################################   					
+RUN       	apt-get update
 
-#	Git
 
-RUN       	apt-get update && apt-get install -y \ 
-						git \
-						&& rm -rf /var/lib/apt/lists/*
+# Expose Ports
+# ┈┈┈┈┈┈┈┈┈┈┈┈┈┈
 
-########################################################   		
+EXPOSE 		80
 
-								# Node Server #
 
-########################################################
+# Write Files
+# ┈┈┈┈┈┈┈┈┈┈┈┈┈┈
 
-##########  Expose Ports
+COPY 		. .
 
-EXPOSE 			80/tcp
 
-COPY . .
+# Build Instance
+# ┈┈┈┈┈┈┈┈┈┈┈┈┈┈
 
-##########  Build Instance
-
-RUN 				npm i
-CMD					node server.js
+RUN 		npm i
+CMD			node server.js

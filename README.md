@@ -17,7 +17,7 @@ We're going to export directly to this directory.
 DOCKER_BUILDKIT=1 docker build  . --output .
 ```
 
-### Build the Docker-Compose File
+### Build & Run the Docker-Compose File
 ```
 docker-compose up --build -d
 ```

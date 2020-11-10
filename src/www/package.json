@@ -7,7 +7,8 @@
     "last 2 Chrome versions"
   ],
   "scripts": {
-    "start": "parcel serve index.html --port 80 -d ../../srv/www/"
+    "start": "parcel serve index.html --port 80 -d ../../srv/www/",
+    "build": "parcel build index.html -d .build"
   },
   "keywords": [],
   "author": "",
