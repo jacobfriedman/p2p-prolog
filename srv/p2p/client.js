@@ -1,21 +1,21 @@
 const process 			= require('process')
-const fs 						= require('fs');
+const fs 				= require('fs');
 
 //////////////// 		LIBP2P
-const Libp2p 				= require('libp2p')
+const Libp2p 			= require('libp2p')
 
 //////////////// 		LIBP2P Libraries
-const TCP 					= require('libp2p-tcp')
-const NOISE 				= require('libp2p-noise')
-const MPLEX 				= require('libp2p-mplex')
+const TCP 				= require('libp2p-tcp')
+const NOISE 			= require('libp2p-noise')
+const MPLEX 			= require('libp2p-mplex')
 const Bootstrap 		= require('libp2p-bootstrap')
 const WebRTCStar 		= require('libp2p-webrtc-star')
 const WebSockets 		= require('libp2p-websockets')
 const GossipSub 		= require('libp2p-gossipsub')
-const MulticastDNS	= require('libp2p-mdns')
+const MulticastDNS		= require('libp2p-mdns')
 
 //////////////// 		LIBP2P Helpers
-const wrtc 					= require('wrtc')
+const wrtc 				= require('wrtc')
 const multiaddr 		= require('multiaddr')
 
 //////////////// 		WebRTC Signalling Server
@@ -25,30 +25,20 @@ const transportKey = WebRTCStar.prototype[Symbol.toStringTag]
 
 //////////////// INITIALIZE  ////////////////////////
 
-
 const main = async () => {
 		
 		console.info(`\n`)
 
-		////////// Create Identity File & Save Locally
-
-		let identityFilePath = '.identity-client.json',
-				identity 
-		
-		// TODO: Abstract into identity.js file
-
-   	identity = JSON.parse(fs.readFileSync('.identity-client.json',{ encoding:'utf8'} ));
-   	console.info(` 🔑 ID (preset): \t ${identity.id.id}`)
+	   	const identity = JSON.parse(fs.readFileSync('.identity.json',{ encoding:'utf8'} ));
+	   	console.info(` 🔑 ID: \t ${identity.id}`)
 
 		const node = await Libp2p.create({
 				addresses:      {
 						// add a listen address (localhost) to accept TCP connections on a random port
 						listen: [
-							'/ip4/0.0.0.0/tcp/9998/wss/p2p-webrtc-star',
-					//		'/ip4/0.0.0.0/tcp/9999/wss/p2p-webrtc-star'
+							'/ip4/0.0.0.0/tcp/9998/wss/p2p-webrtc-star'
 						],
 				},
-
 				modules:        {
 						transport: [TCP, WebSockets,WebRTCStar],
 						connEncryption: [NOISE],
@@ -133,8 +123,8 @@ const main = async () => {
 
 	  console.log(' 👥 Libp2p: \t\tInitializing...')
 
-		// start libp2p
-		let output = await node.start()
+	// start libp2p
+	let output = await node.start()
 
 	  node.multiaddrs.forEach(addr => {
 	    console.log(`\n 🌐 Your Address: \t${addr.toString()}/p2p/${node.peerId.toB58String()}`)
@@ -143,7 +133,6 @@ const main = async () => {
 		const stop = async () => {
 		// stop libp2p
 				await node.stop()
-				console.log('libp2p has stopped')
 				process.exit(0)
 		}
 

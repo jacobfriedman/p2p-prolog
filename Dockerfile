@@ -13,6 +13,7 @@ WORKDIR 	/app
 COPY 		./src/www .
 COPY 		.peers.json .
 
+
 ########## 	Generate Server-Node Identity
 
 RUN 		npm install -g peer-id
@@ -36,6 +37,8 @@ RUN 		npm run build
 COPY 		--from=build /app/.identity.json .
 COPY 		--from=build /app/.identity.json ./src/www/
 COPY 		--from=build /app/.peers.json	 ./src/www/
-COPY 		--from=build /app/.build ./srv/www
+COPY 		--from=build /app/.identity.json ./srv/p2p/
+COPY 		--from=build /app/.peers.json	 ./srv/p2p/
+COPY 		--from=build /app/.build 		 ./srv/www
 
 

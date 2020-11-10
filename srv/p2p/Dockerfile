@@ -4,7 +4,7 @@
 
 ########################################################    		
 
-						# Install Packages #
+			# Install Packages #
 
 ########################################################   					
 
@@ -26,14 +26,11 @@ EXPOSE 			9999/udp
 ##########  Write Files
 
 WORKDIR			/usr/src
-RUN 				mkdir app
+RUN 			mkdir app
 WORKDIR 		/usr/src/app
-COPY 				. .
-COPY				../../.identity-client.json .
-COPY				../../.identity-signaller.json .
-COPY				../../.peers.json .
+COPY 			. .
 
 ##########  Build Instance
 
-RUN 				npm i
-CMD					node
+RUN 			npm i
+CMD				node

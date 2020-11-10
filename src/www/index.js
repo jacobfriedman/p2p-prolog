@@ -11,11 +11,6 @@ import peers  from '.peers.json'
 
 console.log({identity}, {peers})
 
-let queryDict = {};
-
-location.search.substr(1).split("&").forEach(function(item) {
-  queryDict[item.split("=")[0]] = item.split("=")[1]
-})
 
 document.addEventListener('DOMContentLoaded', async () => {
   // Create our libp2p node
@@ -25,7 +20,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       // libp2p will automatically attempt to dial to the signaling server so that it can
       // receive inbound connections from other peers
       listen: [
-        `/ip4/${window.location.hostname}/tcp/9998/ws/p2p-webrtc-star`
+        `/ip4/0.0.0.0/tcp/9998/ws/p2p-webrtc-star`
       ]
     },
     modules: {
@@ -41,7 +36,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         [Bootstrap.tag]: {
           enabled: true,
           list: [
-            `/ip4/${window.location.hostname}/tcp/9998/ws/p2p-webrtc-star/p2p/${identity.id}`,
+            `/ip4/0.0.0.0/tcp/9998/ws/p2p-webrtc-star/p2p/${identity.id}`,
             /*
             '/dnsaddr/bootstrap.libp2p.io/p2p/QmbLHAnMoJPWSCR5Zhtx6BHJX9KiKNN6tpvbUcqanj75Nb',
             '/dnsaddr/bootstrap.libp2p.io/p2p/QmZa1sAxajnQjVM8WjWXoMbmPd7NsWhfKsPkErzpm9wGkp',
