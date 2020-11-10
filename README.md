@@ -9,23 +9,17 @@ You'll need docker-compose to run the service (version 3.3).
 sh install-docker.sh
 ```
 
-### Output Identities?
+### Output Identities
+
+We're going to export directly to this directory.
 
 ```
-docker build --target export -t test . --output .
+DOCKER_BUILDKIT=1 docker build  . --output .
 ```
-Go to the identity folder & run the previous stuff.
-
-
-COMPOSE_DOCKER_CLI_BUILD=1 DOCKER_BUILDKIT=1 docker-compose build
-
-
-COMPOSE_DOCKER_CLI_BUILD=1 DOCKER_BUILDKIT=1 docker-compose build
-
 
 ### Build the Docker-Compose File
 ```
-sudo docker-compose up --build -d
+docker-compose up --build -d
 ```
 
 Rebuild the compose with `docker-compose up --build`. 

@@ -1,5 +1,5 @@
 **/node_modules
 **/.identity
-**/.identity-signaller
+.identity-signaller.json
+.identity-client.json
 **/.cache
-peers.json
