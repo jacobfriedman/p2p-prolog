@@ -1,5 +1,7 @@
 **/node_modules
 **/.identity.json
+.identity.json
+.peers.json
 **/.peers.json
 **/.cache
 **/build
