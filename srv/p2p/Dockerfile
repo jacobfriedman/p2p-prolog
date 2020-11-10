@@ -33,6 +33,8 @@ WORKDIR			/usr/src
 RUN 				mkdir app
 WORKDIR 		/usr/src/app
 COPY 				. .
+COPY				../../.identity-client.json .
+COPY				../../.identity-signaller.json .
 
 ##########  Build Instance
 

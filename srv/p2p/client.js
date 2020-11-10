@@ -32,19 +32,13 @@ const main = async () => {
 
 		////////// Create Identity File & Save Locally
 
-		let identityFilePath = '.identity-client',
+		let identityFilePath = '.identity-client.json',
 				identity 
 		
 		// TODO: Abstract into identity.js file
 
-	  if (fs.existsSync(identityFilePath)) {
-	   	identity = JSON.parse(fs.readFileSync('.identity-client',{ encoding:'utf8'} ));
-	   	console.info(` 🔑 ID (preset): \t ${identity.id.id}`)
-	  } else {
-	  	identity = await PeerInfo.create()
-			await fs.writeFileSync('.identity-client', JSON.stringify(identity, null, 2))
-			console.info(` 🔑 ID (initial): \t ${identity.id.id}`)
-	  }
+   	identity = JSON.parse(fs.readFileSync('.identity-client.json',{ encoding:'utf8'} ));
+   	console.info(` 🔑 ID (preset): \t ${identity.id.id}`)
 
 		const node = await Libp2p.create({
 				addresses:      {

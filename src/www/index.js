@@ -7,10 +7,12 @@ import Mplex from 'libp2p-mplex'
 import Bootstrap from 'libp2p-bootstrap'
 
 
-function getURLParameter(name) {
-    var match = RegExp('[?&]' + name + '=([^&]*)').exec(window.location.search);
-    return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
-}
+let queryDict = {};
+
+location.search.substr(1).split("&").forEach(function(item) {
+  queryDict[item.split("=")[0]] = item.split("=")[1]
+})
+
 
 
 

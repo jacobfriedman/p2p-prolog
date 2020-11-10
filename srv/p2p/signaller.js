@@ -20,18 +20,12 @@ const main = async () => {
 
 		////////// Create Identity File & Save Locally
 
-		let identityFilePath = '.identity-signaller',
+		let identityFilePath = '.identity-signaller.json',
 				identity 
 		// 
+		await fs.writeFileSync('.identity-signaller', JSON.stringify(identity, null, 2))
+		console.info(` 🔑 ID (reset):\t ${identity.id.id}`)
 
-	  if (fs.existsSync(identityFilePath)) {
-	   	identity = JSON.parse(fs.readFileSync('.identity-signaller',{ encoding:'utf8'} ));
-	   	console.info(` 🔑 ID (preset):\t ${identity.id.id}`)
-	  } else {
-	  	identity = await PeerInfo.create()
-			await fs.writeFileSync('.identity-signaller', JSON.stringify(identity, null, 2))
-			console.info(` 🔑 ID (reset):\t ${identity.id.id}`)
-	  }
 
 		////////// Create Identity File & Save Locally
 
