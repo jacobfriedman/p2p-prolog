@@ -9,20 +9,22 @@ You'll need docker-compose to run the service (version 3.3).
 sh install-docker.sh
 ```
 
-### Output Identities
 
-We're going to export directly to this directory.
+## Run
+
+touch `.peers.json` (note: it's a hidden file) and add an array of peers e.g.
 
 ```
-DOCKER_BUILDKIT=1 docker build  . --output .
+[
+	/ipv4/x.x.x.x/etc...
+]
 ```
 
-### Build & Run the Docker-Compose File
 ```
-docker-compose up --build -d
+sh run.sh
 ```
+And that's it!
 
-Rebuild the compose with `docker-compose up --build`. 
 If you're devving, you may need to clean the ridiculously large 
 docker cache once in a while with `docker system prune -a`.
 
