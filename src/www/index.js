@@ -6,7 +6,10 @@ import { NOISE } from 'libp2p-noise'
 import Mplex from 'libp2p-mplex'
 import Bootstrap from 'libp2p-bootstrap'
 
-import identity from './.identity.json'
+import identity from '../../.identity.json'
+import peers  from '../../.peers.json'
+
+console.log({identity}, {peers})
 
 let queryDict = {};
 

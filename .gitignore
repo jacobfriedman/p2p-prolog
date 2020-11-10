@@ -1,6 +1,5 @@
 **/node_modules
 .identity.json
-.peers.json
 **/.cache
 **/build
 srv/www/app*

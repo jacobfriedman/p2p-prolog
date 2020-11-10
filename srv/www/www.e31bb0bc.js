@@ -114228,11 +114228,15 @@ class Bootstrap extends EventEmitter {
 
 exports = module.exports = Bootstrap;
 exports.tag = 'bootstrap';
-},{"peer-id":"node_modules/peer-id/src/index.js","multiaddr":"node_modules/multiaddr/src/index.js","mafmt":"node_modules/mafmt/src/index.js","events":"node_modules/events/events.js","debug":"node_modules/debug/src/browser.js"}],".identity.json":[function(require,module,exports) {
+},{"peer-id":"node_modules/peer-id/src/index.js","multiaddr":"node_modules/multiaddr/src/index.js","mafmt":"node_modules/mafmt/src/index.js","events":"node_modules/events/events.js","debug":"node_modules/debug/src/browser.js"}],"../../.identity.json":[function(require,module,exports) {
 module.exports = {
-  "id": "QmTYDYBMG3zBeRFt81UjJh1ZYLjDiXaBhjtDN4eFDW7CQv",
-  "privKey": "CAASqAkwggSkAgEAAoIBAQC6p0KpU6CgmPZtmT1xGp6/cQd75TfqifvgID1+yr4/OmQGaoYVipSAqW+E8+8WOkKsNX0JWHbU7jOx69zzOtzwpPgXaPELn5M+rwp76BNjTmcAGGDFrSDawlRf8BXn40EScOnxAh7PU4RxWJh1RKoDJKlLrYxmljJlV68sR+FAGLFiaR7CxTleAfk9oAGbopTih4rIFo2FC+Gy0WRQnbmHWwZ+KSC5Oe8k52YCI3bgr3uf2EHcOANAWHRu2s71hU2TAdVAq3oYJ3DeaikimzmWV8JuLZbyuD0APZAsI6PiqnE6APO9ETOMz8pYo8MGiE7+lRVifRRqXI8N9oxdSbR/AgMBAAECggEBALk/z/VmPoGlzs4vzL84gF3YvGjGspxgnk9vMBlq9y6hsSx9BN7UT1by0u/NenlBEXMBEzv3RNlIIJ5xTTVKMoXT9TamvLWghu8rougfCT8CTU/W4hTPI1B6lmsxSUyAS9EVp9m/FP0IEua723Rn1aSQ+kVV1YbrgtD6Ga2FGZYWN5Qw923Zvy02uQRFZAgKurMUc+oBU3h6Ld57mgvpehbYt6r4Y7BKBF1EJiJDcoUBSyNVzbuUNpKCufm3UdkIIEgwiGWSiSEZIbRHStyIsrHdgtgbO8w27n1TgqYJq78hI65EVpVoWjV19RIyYF0APpSDDc0RWEbwfujlpxsLRCECgYEA8pgMchzK3O569e6/1ksvhW35xIQgpaHbomePqnfkEaReWNpJccMdaHvhqMy3u8ypKN3qczT236pU0X4ZWYuRbfbCndkiItSgmlgotd8DBJb57fKPjsWBVYGV7DNUzw5oH7ZdJZeHnuuRjs8T+fwM2mfw6pk2ADF32ehBO9mPK6MCgYEAxPfTgWgOLX5Zmc0cXrXLEdtcNABm024Rgd6LUsMYkElOhGjyYDodg+hzIAjwqcZRKnPWyVeqO2kT+dtbCQFArehoxrDPOuFX4XnksdwRrzu5oDGBhXqU3V7wsGMe1MtkZDAfRpdFOaSQcwQHtPSAmueF+nREjgazeKwXBEiGYXUCgYEAjXYsi75ObVaDTTXTl9pv85aVtwp1HyCrOqC5Heabj84RVi6z9SqZ03upswztdw149uOw+00/SF3C6AZoMdc5Dq59/h3H0he7L0WJN8S7tcl0JFT1cYOqT3opOnsUUUlNXnCxEGK0Ku+jCWuncnaP6CwESEjfPG2cPe05XPUYj5ECgYAm0LvSjaH1nyejIoOLuoGZNERYTxf0ZIV4tVV5as8FaBzcBR52jh1Q6Fb/oiNjIZzPI+LY7Li0WoHARFUNUjzfyKQVO7Sq4suBuJaz4i1t/fQXuInQtxZtBY+jAvWJc8eF4uHW9GqE8IQy1kF6jJBndma1s4HrBzEI/8jNZElvHQKBgBnWMdiuUhLeiz0RA6xWxhaXcNST7wUqVmM9q6KaQ3v96TQAWPGIX2phkYrk0DvIUv9J8H0iZ44a71tIK92kN06yAPZxucBiBdt6OWMb3OhKR00RL49EhJQZ87WUReZdnOrkLWWEaWnh5ZBNJMYL69vO66ty7qiEu1fXAn1Cu1yD",
-  "pubKey": "CAASpgIwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQC6p0KpU6CgmPZtmT1xGp6/cQd75TfqifvgID1+yr4/OmQGaoYVipSAqW+E8+8WOkKsNX0JWHbU7jOx69zzOtzwpPgXaPELn5M+rwp76BNjTmcAGGDFrSDawlRf8BXn40EScOnxAh7PU4RxWJh1RKoDJKlLrYxmljJlV68sR+FAGLFiaR7CxTleAfk9oAGbopTih4rIFo2FC+Gy0WRQnbmHWwZ+KSC5Oe8k52YCI3bgr3uf2EHcOANAWHRu2s71hU2TAdVAq3oYJ3DeaikimzmWV8JuLZbyuD0APZAsI6PiqnE6APO9ETOMz8pYo8MGiE7+lRVifRRqXI8N9oxdSbR/AgMBAAE="
+  "id": "QmSEgS3tMFjvtjoeqDC2CpPxiqbtdf7geTLjntbcinwaVF",
+  "privKey": "CAASpwkwggSjAgEAAoIBAQDOuA1Fpv3Jg0dd9LcpKx0RBiaxaPS3Ck8MillcG13ZDZnkQ4VHmtS94byD46ZuWx0AULUhTgFJ1LFQzzcz03qsPMELW05qVeXCl6RSJm5vLUH5g2mGQh7CdPhAyDx6yRPF1LBVEO3JaW3O0tngl8TtimTq43xqH2aX073NooF7fBoo1y9Tq+MAmgwEQR2RTc94eRlxolvwIla+lwPdbpEEkYoI/bI2+CsPyBWQ5FPeiI2jT/8qBMilnFVXKH0uTR977IqvC42/CheaFN60h31RU40F11A+JhjT6aRXPFfMZw+C+UvOgHsW9jnP62TSZTJiAgHJBMBEqEcKXgqdUY3LAgMBAAECggEBAKhjguQvEGJ7HsJpWl4dsZKxiQlRLq5/pj7X38zIuhzaGHa5jbLza8K1REPHSEZyz9/23mUfzqreqAXkldoQtcfhwXrHyMuT5xIpRoBor+K+YhSnOGlWKQpMEAFtWt7GNuYax/yzSo+b4wfr9/EckBzTdDtmTW2A4KhioiUE8CauTNrKX4TpfeQEJQ03RIMj84nm4qrfLssOOoRM2fJPfMc/sFvjQ5OH0FjofIe64STu0f4Ll2+Om5TcFYYQFm+jPa+B/+LqZdWfWu3+mDL2pJPAj99ojb0wvNN2s57EXP/kxdZkJGclBg+uQ1hASFM+uJN2sF3UIIcIr1QxA1Nt5PECgYEA8DX3Rein83vZNTdo4Pbs/3hEPfD+b4dZp17SYy3gRJm233a/TN/xw5bgiXLvmfmoXskhB5PMHMfhOIctjDabNJq0xzNmTVY56knCy1bldYRcu4jqXx7BL3sZGVRNvbyLQzT+WnQL04GFLIN2ejLpPCCzdbLTwleAOA/48WOXqTkCgYEA3E6EgFJZF6wkY+qH+6Spd+zcJ6/9iS7FBgEigVGOI8wWWx+1YD+N/4s86EckLAd4NeNA484lA7g2slN5u5xoSb9ZiQ/Ekj33PfsQ99tfZ/DY29YlWBlr83WZPhnveIvFihDKp5DbX/se6YXZa2jHUmC12EInHxD6DNXOAkInwyMCgYA8mvELY1rUlL/FrHg6ojJDdn2JPz+CthyJnOPqAA4gYMQB93zmkW33Eh8OrsADEjlHyOkbd0+9RzTsxTZZtQFNsWbBB5fdFU9BbGDIWuFD2CRpcG7pluHY7+7yNBH1OBfO2hT+j17Ye0o1Y+nFhQjRkdKVdIv28Yq5GlaN2LnQCQKBgHmRSkSVLFyHvTz1ejw+TNXEemfcEYfVqxr5HVVG76yJPfzirm+CIpVU/DMgrrEtHgR+dpw+cOZwjJ4yugXw9Qtc78dWUB5y2y/0jxR2lVsB6GjG7qyCurMJvZorLZ3TYxog0fNNWADKzfAG0EcY9oRaoX3IY1YdRB45DQjqAI8JAoGAMvaxhs79eINHqklEHFuPPvbk7pEEjJiwnL2JOAAwN+KKuDa2Tj4gKyH9DiE4iORz54W1C6/YlMwswKySXdypMbwxx8hj8DKVgAyI9pxtA55Rsl/wg2GoUW9Od2wW2A6SQFNWpU1tzT38xLzq/733+E7AmEoKqUh6gBtfd1GmoHo=",
+  "pubKey": "CAASpgIwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQDOuA1Fpv3Jg0dd9LcpKx0RBiaxaPS3Ck8MillcG13ZDZnkQ4VHmtS94byD46ZuWx0AULUhTgFJ1LFQzzcz03qsPMELW05qVeXCl6RSJm5vLUH5g2mGQh7CdPhAyDx6yRPF1LBVEO3JaW3O0tngl8TtimTq43xqH2aX073NooF7fBoo1y9Tq+MAmgwEQR2RTc94eRlxolvwIla+lwPdbpEEkYoI/bI2+CsPyBWQ5FPeiI2jT/8qBMilnFVXKH0uTR977IqvC42/CheaFN60h31RU40F11A+JhjT6aRXPFfMZw+C+UvOgHsW9jnP62TSZTJiAgHJBMBEqEcKXgqdUY3LAgMBAAE="
+};
+},{}],"../../.peers.json":[function(require,module,exports) {
+module.exports = {
+  "peers": "test"
 };
 },{}],"index.js":[function(require,module,exports) {
 "use strict";
@@ -114251,10 +114255,17 @@ var _libp2pMplex = _interopRequireDefault(require("libp2p-mplex"));
 
 var _libp2pBootstrap = _interopRequireDefault(require("libp2p-bootstrap"));
 
-var _identity = _interopRequireDefault(require("./.identity.json"));
+var _identity = _interopRequireDefault(require("../../.identity.json"));
+
+var _peers = _interopRequireDefault(require("../../.peers.json"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+console.log({
+  identity: _identity.default
+}, {
+  peers: _peers.default
+});
 let queryDict = {};
 location.search.substr(1).split("&").forEach(function (item) {
   queryDict[item.split("=")[0]] = item.split("=")[1];
@@ -114320,7 +114331,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   window.libp2p = libp2p;
 });
-},{"babel-polyfill":"node_modules/babel-polyfill/lib/index.js","libp2p":"node_modules/libp2p/src/index.js","libp2p-websockets":"node_modules/libp2p-websockets/src/index.js","libp2p-webrtc-star":"node_modules/libp2p-webrtc-star/src/index.js","libp2p-noise":"node_modules/libp2p-noise/dist/src/index.js","libp2p-mplex":"node_modules/libp2p-mplex/src/index.js","libp2p-bootstrap":"node_modules/libp2p-bootstrap/src/index.js","./.identity.json":".identity.json"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"babel-polyfill":"node_modules/babel-polyfill/lib/index.js","libp2p":"node_modules/libp2p/src/index.js","libp2p-websockets":"node_modules/libp2p-websockets/src/index.js","libp2p-webrtc-star":"node_modules/libp2p-webrtc-star/src/index.js","libp2p-noise":"node_modules/libp2p-noise/dist/src/index.js","libp2p-mplex":"node_modules/libp2p-mplex/src/index.js","libp2p-bootstrap":"node_modules/libp2p-bootstrap/src/index.js","../../.identity.json":"../../.identity.json","../../.peers.json":"../../.peers.json"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -114348,7 +114359,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "46165" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "38445" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
