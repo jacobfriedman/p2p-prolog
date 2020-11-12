@@ -3,9 +3,9 @@ services:
     nodejs-http-server:
         build: ./srv/www
         ports:      
-            - "0.0.0.0:80:80/tcp"
+            - "0.0.0.0:8000:8000/tcp"
         expose:
-            - 80
+            - 8000
         network_mode: "host"
     nodejs-libp2p-signaller:
         depends_on: [nodejs-http-server]

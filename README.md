@@ -9,6 +9,9 @@ You'll need docker-compose to run the service (version 3.3).
 sh install-docker.sh
 ```
 
+```
+DOMAIN=<yourdomain.here> docker-compose up 
+```
 
 ## Run
 
