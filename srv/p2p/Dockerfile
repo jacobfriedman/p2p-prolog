@@ -33,4 +33,4 @@ COPY 			. .
 ##########  Build Instance
 
 RUN 			npm i
-CMD				node
+CMD				node client.js

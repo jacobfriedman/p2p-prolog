@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         [Bootstrap.tag]: {
           enabled: true,
           list: [
-            `${peers.signallers[0]}/p2p/${identity.id}`,
+            `${peers.signallers[0]}p2p/${identity.id}`,
             ...peers.peers
           ]
         }

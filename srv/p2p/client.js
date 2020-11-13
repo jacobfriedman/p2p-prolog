@@ -45,7 +45,7 @@ const main = async () => {
 				addresses:      {
 						// add a listen address (localhost) to accept TCP connections on a random port
 						listen: [
-							'/ip4/0.0.0.0/tcp/9998/ws/p2p-webrtc-star'
+							'/dns4/signaller1.tbpms.ca/tcp/9999/wss/p2p-webrtc-star/'
 						],
 				},
 				modules:        {
@@ -85,8 +85,8 @@ const main = async () => {
 		          interval: 60e3,
 		          enabled: true,
 		          list: [
-		            `/ip4/0.0.0.0/tcp/9998/ws/p2p-webrtc-star/p2p/${identity.id.id}`,
-		            ...peers.list
+		             `/dns4/signaller1.tbpms.ca/tcp/9999/wss/p2p-webrtc-star/p2p/${identity.id}`,
+		            ...peers.peers
 		          ]
 		        },
 		      },

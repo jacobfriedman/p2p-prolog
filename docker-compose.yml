@@ -3,24 +3,17 @@ services:
     nodejs-http-server:
         build: ./srv/www
         ports:      
-            - "0.0.0.0:80:80/tcp"
+            - 80
         expose:
             - 80
         network_mode: "host"
 
     nodejs-libp2p-client:
-        depends_on: [nodejs-libp2p-signaller]
         build: ./srv/p2p
         ports:      
+            - "0.0.0.0:9998:9998/tcp"
+            - "0.0.0.0:9998:9998/udp"
             - "0.0.0.0:9999:9999/tcp"
             - "0.0.0.0:9999:9999/udp"
         command: node client.js
         network_mode: "host"
-                
-networks:
-    service_network:
-
-volumes:
-    nginx-certs:
-    nginx-vhost:
-    nginx-html:

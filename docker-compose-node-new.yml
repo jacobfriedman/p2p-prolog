@@ -3,9 +3,19 @@ services:
     nginx:
         build: ./srv/www
         environment:
-            - VIRTUAL_HOST=localhost
+            - VIRTUAL_HOST=${DOMAIN}
+            - LETSENCRYPT_HOST=${DOMAIN}
+            - VIRTUAL_PORT=8080
         networks:
             service_network:
+
+     nodejs-libp2p-client:
+        build: ./srv/p2p
+        ports:      
+            - "0.0.0.0:9999:9999/tcp"
+            - "0.0.0.0:9999:9999/udp"
+        command: node client.js
+        network_mode: "host"           
 
     nginx-proxy:
         image: jwilder/nginx-proxy
