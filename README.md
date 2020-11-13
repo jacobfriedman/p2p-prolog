@@ -13,6 +13,11 @@ sh install-docker.sh
 DOMAIN=<yourdomain.here> docker-compose up 
 ```
 
+## Containers
+
+In order to remove containers, run `docker rm $(docker ps -a -q)`.
+
+
 ## Run
 
 touch `.peers.json` (note: it's a hidden file) and add an array of peers e.g.

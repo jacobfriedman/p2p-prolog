@@ -26,8 +26,16 @@ const transportKey = WebRTCStar.prototype[Symbol.toStringTag]
 //////////////// INITIALIZE  ////////////////////////
 
 const main = async () => {
-		
-		console.info(`\n`)
+
+	console.clear();
+	console.info(`
+ ___  __   ___    ___  ____ ____ _    ____ ____
+ |--'  /_  |--'   |--' |--< [__] |___ [__] |__,  
+		 `)
+
+	console.log('\n ┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈\n')
+
+	console.log('💫 Star signaller running...')
 
 	   	const identity = JSON.parse(fs.readFileSync('.identity.json',{ encoding:'utf8'} ));
 	   	const peers = 	 JSON.parse(fs.readFileSync('.peers.json',{ encoding:'utf8'} ));

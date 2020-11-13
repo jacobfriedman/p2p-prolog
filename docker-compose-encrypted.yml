@@ -1,0 +1,32 @@
+version: "3.3"
+services:
+    nginx:
+        build: ./srv/www
+        environment:
+            - VIRTUAL_HOST=localhost
+        networks:
+            service_network:
+
+    nginx-proxy:
+        image: jwilder/nginx-proxy
+        ports:
+            - 80:80
+            - 443:443
+        container_name: nginx-proxy
+        networks:
+            service_network:
+        volumes:
+            - /var/run/docker.sock:/tmp/docker.sock:ro
+            - nginx-certs:/etc/nginx/certs
+            - nginx-vhost:/etc/nginx/vhost.d
+            - nginx-html:/usr/share/nginx/html
+        depends_on:
+            -  nginx
+
+networks:
+    service_network:
+
+volumes:
+    nginx-certs:
+    nginx-vhost:
+    nginx-html:

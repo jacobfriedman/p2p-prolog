@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       // libp2p will automatically attempt to dial to the signaling server so that it can
       // receive inbound connections from other peers
       listen: [
-        `/dns4/localhost/tcp/9998/wss/p2p-webrtc-star`
+        ...peers.signallers[0]
       ]
     },
     modules: {
@@ -33,8 +33,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         [Bootstrap.tag]: {
           enabled: true,
           list: [
-            `/dns4/localhost/tcp/9999/wss/p2p-webrtc-star/p2p/${identity.id}`,
-            ...peers.list
+            `${peers.signallers[0]}/p2p/${identity.id}`,
+            ...peers.peers
           ]
         }
       }

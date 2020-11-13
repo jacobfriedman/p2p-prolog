@@ -2,7 +2,7 @@ var express = require('express');
 
 console.log('\n ┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈\n')
 
-console.log(` 🗃  Serving files on Port 8000 (HTTP).`)
+console.log(` 🗃  Serving files on Port 80 (HTTP).`)
 
 console.log('\n ┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈\n')
 
@@ -13,7 +13,7 @@ express()
         });
     })
     .use(express.static(__dirname))
-    .listen(8000);
+    .listen(80);
 
 
 
