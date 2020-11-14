@@ -8,8 +8,9 @@
 
 ########################################################   					
 
-RUN       	apt-get update
-
+ADD 			package.json /app/
+WORKDIR 		/app
+RUN 			npm install
 ########################################################   		
 
 				# P2P-Node #
@@ -25,12 +26,8 @@ EXPOSE 			9999/udp
 
 ##########  Write Files
 
-WORKDIR			/usr/src
-RUN 			mkdir app
-WORKDIR 		/usr/src/app
 COPY 			. .
 
 ##########  Build Instance
 
-RUN 			npm i
-CMD				node client.js
+CMD				node index.js

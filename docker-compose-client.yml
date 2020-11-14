@@ -12,9 +12,7 @@ services:
      nodejs-libp2p-client:
         build: ./srv/p2p
         ports:      
-            - "0.0.0.0:9999:9999/tcp"
-            - "0.0.0.0:9999:9999/udp"
-        command: node client.js
+            - 9999:9999
         network_mode: "host"           
 
     nginx-proxy:

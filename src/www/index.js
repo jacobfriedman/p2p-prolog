@@ -5,11 +5,14 @@ import WebRTCStar from 'libp2p-webrtc-star'
 import { NOISE } from 'libp2p-noise'
 import Mplex from 'libp2p-mplex'
 import Bootstrap from 'libp2p-bootstrap'
+import PeerId from 'peer-id'
 
 import identity from '.identity.json'
 import peers  from '.peers.json'
 
 document.addEventListener('DOMContentLoaded', async () => {
+
+
   // Create our libp2p node
   const libp2p = await Libp2p.create({
     addresses: {
@@ -33,6 +36,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         [Bootstrap.tag]: {
           enabled: true,
           list: [
+            // We need to convert this ID into a multiaddr.
             `${peers.signallers[0]}p2p/${identity.id}`,
             ...peers.peers
           ]

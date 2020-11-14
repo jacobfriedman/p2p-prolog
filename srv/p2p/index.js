@@ -17,6 +17,7 @@ const MulticastDNS		= require('libp2p-mdns')
 //////////////// 		LIBP2P Helpers
 const wrtc 				= require('wrtc')
 const multiaddr 		= require('multiaddr')
+const PeerId 			= require('peer-id')
 
 //////////////// 		WebRTC Signalling Server
 const Signaller 		= require('libp2p-webrtc-star/src/sig-server')
@@ -35,17 +36,19 @@ const main = async () => {
 
 	console.log('\n ┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈\n')
 
-	console.log('💫 Star signaller running...')
+	   	const peerId = await PeerId.createFromJSON(JSON.parse(fs.readFileSync('.identity.json',{ encoding:'utf8'} )));
 
-	   	const identity = JSON.parse(fs.readFileSync('.identity.json',{ encoding:'utf8'} ));
 	   	const peers = 	 JSON.parse(fs.readFileSync('.peers.json',{ encoding:'utf8'} ));
-	   	console.info(` 🔑 ID: \t ${identity.id}`)
+
+
+	   	console.info(` 🔑 ID: \t ${peerId.toB58String()}`)
 
 		const node = await Libp2p.create({
+				peerId,
 				addresses:      {
 						// add a listen address (localhost) to accept TCP connections on a random port
 						listen: [
-							'/dns4/signaller1.tbpms.ca/tcp/9999/wss/p2p-webrtc-star/'
+							`${peers.signallers[0]}`
 						],
 				},
 				modules:        {
@@ -83,9 +86,8 @@ const main = async () => {
 			      },
 		        [Bootstrap.tag]: {
 		          interval: 60e3,
-		          enabled: true,
+		          enabled: peers.peers.length ? true : false,
 		          list: [
-		             `/dns4/signaller1.tbpms.ca/tcp/9999/wss/p2p-webrtc-star/p2p/${identity.id}`,
 		            ...peers.peers
 		          ]
 		        },
