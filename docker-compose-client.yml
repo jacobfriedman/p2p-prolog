@@ -2,7 +2,8 @@ version: "3.3"
 services:
 
     nginx:
-        build: ./srv/www
+        build:
+          context: ./srv/www
         environment:
             - VIRTUAL_HOST=${DOMAIN}
             - LETSENCRYPT_HOST=${DOMAIN}
@@ -11,10 +12,11 @@ services:
             service_network:
 
     nodejs-libp2p-client:
-        build: ./srv/p2p
-        ports:      
+        build:
+          context: ./srv/p2p
+        ports:
             - 9999:9999
-        network_mode: "host"           
+        network_mode: "host"
 
     nginx-proxy:
         image: jwilder/nginx-proxy
