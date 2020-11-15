@@ -23,7 +23,6 @@ RUN 		peer-id > .identity.json
 
 ########## 	Install Browser/Client-Node dependencies
 
-RUN 		npm i
 RUN 		npm run build
 
 ########################################################
