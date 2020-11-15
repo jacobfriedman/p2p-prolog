@@ -1,15 +1,16 @@
 version: "3.3"
 services:
+
     nginx:
         build: ./srv/www
         environment:
             - VIRTUAL_HOST=${DOMAIN}
             - LETSENCRYPT_HOST=${DOMAIN}
-            - VIRTUAL_PORT=8080
+            - VIRTUAL_PORT=80
         networks:
             service_network:
 
-     nodejs-libp2p-client:
+    nodejs-libp2p-client:
         build: ./srv/p2p
         ports:      
             - 9999:9999

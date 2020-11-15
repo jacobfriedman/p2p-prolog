@@ -6,7 +6,6 @@ set -o nounset
 IFS=$(printf '\n\t')
 
 # Docker
-sudo apt remove --yes docker docker-engine docker.io containerd runc
 sudo apt update
 sudo apt --yes --no-install-recommends install apt-transport-https ca-certificates
 wget --quiet --output-document=- https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -

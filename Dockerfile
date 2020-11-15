@@ -8,7 +8,9 @@
 
 ########################################################   					
 
-WORKDIR 	/app
+ADD 			package.json /app/
+WORKDIR 		/app
+RUN 			npm install
 
 COPY 		./src/www .
 COPY 		.peers.json .
@@ -21,7 +23,6 @@ RUN 		peer-id > .identity.json
 
 ########## 	Install Browser/Client-Node dependencies
 
-RUN 		npm i
 RUN 		npm run build
 
 ########################################################
@@ -37,6 +38,8 @@ RUN 		npm run build
 COPY 		--from=build /app/.identity.json .
 COPY 		--from=build /app/.identity.json ./src/www/
 COPY 		--from=build /app/.peers.json	 ./src/www/
+COPY 		--from=build /app/.identity.json ./srv/www/
+COPY 		--from=build /app/.peers.json	 ./srv/www/
 COPY 		--from=build /app/.identity.json ./srv/p2p/
 COPY 		--from=build /app/.peers.json	 ./srv/p2p/
 COPY 		--from=build /app/.build 		 ./srv/www
