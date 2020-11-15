@@ -27,7 +27,7 @@ services:
             - js-libp2p-webrtc-star
 
     nginx-proxy-letsencrypt:
-        image: jrcs/letsencrypt-nginx-proxy-companion-
+        image: jrcs/letsencrypt-nginx-proxy-companion
         environment:
             NGINX_PROXY_CONTAINER: "nginx-proxy"
         networks:
