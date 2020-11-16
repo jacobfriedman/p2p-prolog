@@ -34,10 +34,9 @@ document.addEventListener('DOMContentLoaded', async () => {
         // The `tag` property will be searched when creating the instance of your Peer Discovery service.
         // The associated object, will be passed to the service when it is instantiated.
         [Bootstrap.tag]: {
-          enabled: true,
+          enabled: peers.peers.length ? true : false,
           list: [
             // We need to convert this ID into a multiaddr.
-            `${peers.signallers[0]}p2p/${identity.id}`,
             ...peers.peers
           ]
         }

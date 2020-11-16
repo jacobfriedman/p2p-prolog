@@ -4,36 +4,48 @@
 
 You'll need docker-compose to run the service (version 3.3). 
 ```
-# A simple Docker and Docker Compose install script for Ubuntu
 # From <https://gist.github.com/EvgenyOrekhov/1ed8a4466efd0a59d73a11d753c0167b>
 sh install-docker.sh
 ```
 
 ```
-DOMAIN=<yourdomain.here> docker-compose up 
+export DOMAIN=<yourdomain.here> && docker-compose up 
 ```
 
-## Containers
 
-In order to remove containers, run `docker rm $(docker ps -a -q)`.
+## Preparing your environment
 
+1. *Distribute Identities*
 
-## Run
-
-touch `.peers.json` (note: it's a hidden file) and add an array of peers e.g.
+Docker needs to build-out a single identity and distribute it across the HTML client & NodeJS client through `peer-id`. We also want to distribute the `.peers.json` file in the same way. Put your signaller and peers' multiaddrs (peers are not necessary for a new network) in `.peers.json` (you'll have to `touch .peers.json` first):
 
 ```
 {
-	"list": [
-		"/ip4/xx.xx.xx.xx/tcp/9998/ws/"
+	"peers": [
+		"/dns4/your.signaller.domain/tcp/9999/wss/p2p-webrtc-star/p2p/QmYJollioPDRGYM6doTJEDguuUniFSYLBqyLJxwBtQzkkR"
+	],
+	"signallers": [
+		"/dns4/your.signaller.domain/tcp/9999/wss/p2p-webrtc-star/"
 	]
 }
 ```
 
+2. *Run the Bootstrapper*
+
+This will generate `.identity.json` and distribute `.identity.json`+`.peers.json` to the NodeJS p2p node. It will also inject `.identity.json`+`.peers.json` into the `src/www` (html source), run the parcel HTML builder, then copy the output over to `srv/www`.
+
+Run 
 ```
-sh run.sh
+sh bootstrap.sh
 ```
-And that's it!
+
+
+## Docker Cleanup Tools
+
+### Container Management
+In order to remove containers, run `docker rm $(docker ps -a -q)`.
+
+### Complete Wipe
 
 If you're devving, you may need to clean the ridiculously large 
 docker cache once in a while with `docker system prune -a`.
