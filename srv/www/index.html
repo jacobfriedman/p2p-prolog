@@ -1,7 +1,51 @@
-<html lang="en"><head><meta charset="utf-8"><title>🦉⇄🦉 P2PLog</title><style>html{background:#000}body{font-family:mono}body,invert{filter:invert(1)}.app{display:flex}.console,.editor{flex:1;box-sizing:border-box;padding:10px}.console{max-width:600px}.output-error{color:#900}input,textarea{box-sizing:border-box;width:100%}.loader{animation:blinker 1s linear infinite;font-size:70px;display:none}#libp2poutput,#libp2pstatus{border:1px solid red;overflow-y:scroll;height:80px;display:block}</style></head><body> <h1 id="status"> <pre>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <title>🦉⇄🦉 P2PLog</title>
+
+
+  <style>html {
+              background:black;
+            }
+            body { font-family: mono;
+
+              filter:invert(1);
+
+            }
+            invert {
+              filter:invert(1);
+            }
+            .app { display: flex; }
+            .console, .editor { flex: 1; box-sizing: border-box; padding: 10px; }
+            .console { max-width: 600px; }
+            .output-error { color: #900; }
+            input, textarea { box-sizing: border-box; width: 100%; }
+            .loader { animation: blinker 1s linear infinite; font-size: 70px; display: none; }
+
+            #libp2poutput, #libp2pstatus {
+              border:1px solid red;
+              overflow-y:scroll;
+              height:80px;
+              display:block;
+            }</style>
+        
+  </head>
+
+  <body>
+    <h1 id="status">
+      <pre>
 ___  __   ___    ___  ____ ____ _    ____ ____
 |--'  /_  |--'   |--' |--< [__] |___ [__] |__,     
-</pre> </h1> <main> <pre id="libp2pstatus"></pre> <pre id="libp2poutput"></pre> </main> <script src="/app.a76544c6.js"></script> <script type="module">
+</pre>
+
+    </h1>
+    <main>
+      <pre id="libp2pstatus"></pre>
+      <pre id="libp2poutput"></pre>
+    </main>
+    <script src="/www.e31bb0bc.js"></script>
+  <script type="module">
 
     import SWIPL from './swipl-web.js';
 
@@ -142,7 +186,21 @@ ___  __   ___    ___  ____ ____ _    ____ ____
                                 } 
       )
 
-  </script>  <div class="app"> <div class="console"> <pre class="output" id="output"></pre> <form class="input" id="input"> <input type="text" name="query"> </form> </div> <div class="editor"> <form id="editor"> <textarea name="file" rows="40">
+  </script>
+
+  
+
+
+            <div class="app">
+                <div class="console">
+                    <pre class="output" id="output"></pre>
+                    <form class="input" id="input">
+                        <input type="text" name="query">
+                    </form>
+                </div>
+                <div class="editor">
+                    <form id="editor">
+                        <textarea name="file" rows="40">
 :- use_module(library(lists)).
 
 %%    queens(+N, -Queens) is nondet.
@@ -174,4 +232,12 @@ queens([C|Cs], Row0, [Col|Solution]) :-
     select(Col-Vars, [C|Cs], Board),
     arg(Row, Vars, Row-Row),
     queens(Board, Row, Solution).
-                        </textarea> <button type="submit">(Re)consult</button> </form> </div> </div></body></html>
+                        </textarea>
+                        <button type="submit">(Re)consult</button>
+                    </form>
+                </div>
+
+
+  </div></body>
+
+</html>

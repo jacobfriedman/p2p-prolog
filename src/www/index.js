@@ -3,6 +3,8 @@ import Libp2p from 'libp2p'
 import Websockets from 'libp2p-websockets'
 import WebRTCStar from 'libp2p-webrtc-star'
 import { NOISE } from 'libp2p-noise'
+import SECIO from 'libp2p-secio'
+import GossipSub from 'libp2p-gossipsub'
 import Mplex from 'libp2p-mplex'
 import Bootstrap from 'libp2p-bootstrap'
 import PeerId from 'peer-id'
@@ -12,7 +14,6 @@ import peers  from '.peers.json'
 
 document.addEventListener('DOMContentLoaded', async () => {
 
-
   // Create our libp2p node
   const libp2p = await Libp2p.create({
     addresses: {
@@ -20,12 +21,13 @@ document.addEventListener('DOMContentLoaded', async () => {
       // libp2p will automatically attempt to dial to the signaling server so that it can
       // receive inbound connections from other peers
       listen: [
-        ...peers.signallers[0]
+        peers.signallers[0]
       ]
     },
     modules: {
       transport: [Websockets, WebRTCStar],
-      connEncryption: [NOISE],
+      connEncryption: [NOISE, SECIO],
+      pubsub: GossipSub,
       streamMuxer: [Mplex],
       peerDiscovery: [Bootstrap]
     },
@@ -41,6 +43,9 @@ document.addEventListener('DOMContentLoaded', async () => {
           ]
         }
       }
+    },
+      EXPERIMENTAL: {
+    pubsub: true
     }
   })
 
@@ -71,8 +76,47 @@ document.addEventListener('DOMContentLoaded', async () => {
   })
 
   await libp2p.start()
-  status.innerText = 'libp2p started!'
-  log(`libp2p id is ${libp2p.peerId.toB58String()}`)
+ libp2p.connectionManager.on('peer:connect', (connection) => {
+      console.log('\n \n Connection established to:', connection.remotePeer.toB58String())  // Emitted when a peer has been found
+   
+    const topic = 'paxos'
+    const handler = (msg) => {
+      console.log(`topic: ${topic}`, new TextDecoder().decode(msg.data))
+    }
+
+    libp2p.pubsub.on(topic, handler)
+    libp2p.pubsub.subscribe(topic)
+
+    const data = new TextEncoder().encode(`Hello <${thisId}>`)
+
+    setInterval( async () => {
+     libp2p.pubsub.publish('paxos', data)
+
+  // console.log(libp2p.connections,'CONENCTIONS')
+
+    }, 5000
+
+     );
+
+    })
+
+    libp2p.peerStore.on('peer', async (peerId) => {
+      console.log(`\n 🔭 Discovered:\t\t${peerId.toB58String()}`)
+
+     // let done = await libp2p.dial(peerId);
+
+    })
+
+    console.log('\n ┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈\n')
+    console.log(' 👥 Libp2p: \t\tInitializing...')
+
+  // start libp2p
+    
+
+    libp2p.multiaddrs.forEach(addr => {
+      console.log(`\n 🌐 Your Address: \t${addr.toString()}/p2p/${libp2p.peerId.toB58String()}`)
+    })
+
 
   // Export libp2p to the window so you can play with the API
   window.libp2p = libp2p

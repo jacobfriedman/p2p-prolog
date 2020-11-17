@@ -1,0 +1,3 @@
+[submodule "srv/prolog/lib/packages-paxos"]
+	path = srv/prolog/lib/packages-paxos
+	url = https://github.com/jacobfriedman/packages-paxos

@@ -1,19 +1,24 @@
 # P2P Prolog
 
-## Install Docker & Docker-Compose
+## Run the compose files
 
-You'll need docker-compose to run the service (version 3.3). 
-```
-# From <https://gist.github.com/EvgenyOrekhov/1ed8a4466efd0a59d73a11d753c0167b>
-sh install-docker.sh
-```
+If this is your first time running, please see 'Initialization' below.
+
+**Signaller**: 
 
 ```
-export DOMAIN=<yourdomain.here> && docker-compose up 
+export DOMAIN=<yourdomain.here> && docker-compose -f docker-compose-signaller up 
 ```
 
+*Clients (Browser & NodeJS)*: 
+```
+export DOMAIN=<yourdomain.here> && docker-compose -f docker-compose-signaller up 
+```
 
-## Preparing your environment
+_Note: Append `-d` to start docker-compose daemons._
+
+
+### Initialization
 
 1. *Distribute Identities*
 
@@ -39,16 +44,23 @@ Run
 sh bootstrap.sh
 ```
 
+## Docker Tools
 
-## Docker Cleanup Tools
+## Install Docker & Docker-Compose
+
+You'll need docker-compose to run the service (version 3.3). 
+```
+# From <https://gist.github.com/EvgenyOrekhov/1ed8a4466efd0a59d73a11d753c0167b>
+sh install-docker.sh
+```
 
 ### Container Management
 In order to remove containers, run `docker rm $(docker ps -a -q)`.
 
-### Complete Wipe
-
 If you're devving, you may need to clean the ridiculously large 
 docker cache once in a while with `docker system prune -a`.
+
+
 
 ***
 
