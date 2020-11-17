@@ -79,6 +79,15 @@ document.addEventListener('DOMContentLoaded', async () => {
  libp2p.connectionManager.on('peer:connect', (connection) => {
       console.log('\n \n Connection established to:', connection.remotePeer.toB58String())  // Emitted when a peer has been found
    
+    })
+
+    libp2p.peerStore.on('peer', async (peerId) => {
+      console.log(`\n 🔭 Discovered:\t\t${peerId.toB58String()}`)
+
+     // let done = await libp2p.dial(peerId);
+
+    })
+
     const topic = 'paxos'
     const handler = (msg) => {
       console.log(`topic: ${topic}`, new TextDecoder().decode(msg.data))
@@ -97,15 +106,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     }, 5000
 
      );
-
-    })
-
-    libp2p.peerStore.on('peer', async (peerId) => {
-      console.log(`\n 🔭 Discovered:\t\t${peerId.toB58String()}`)
-
-     // let done = await libp2p.dial(peerId);
-
-    })
 
     console.log('\n ┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈\n')
     console.log(' 👥 Libp2p: \t\tInitializing...')
