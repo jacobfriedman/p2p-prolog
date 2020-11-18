@@ -12,7 +12,7 @@ export DOMAIN=<yourdomain.here> && docker-compose -f docker-compose-signaller up
 
 *Clients (Browser & NodeJS)*: 
 ```
-export DOMAIN=<yourdomain.here> && docker-compose -f docker-compose-signaller up 
+export DOMAIN=<yourdomain.here> && docker-compose -f docker-compose-client up 
 ```
 
 _Note: Append `-d` to start docker-compose daemons._
