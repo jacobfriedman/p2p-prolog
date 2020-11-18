@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "dependencies": {
+    "express": "^4.17.1",
     "hyperdiff": "^2.0.7",
     "libp2p": "^0.29.3",
     "libp2p-bootstrap": "^0.12.1",
@@ -18,7 +19,8 @@
     "libp2p-websockets": "^0.14.0",
     "multiaddr": "^8.1.1",
     "peer-id": "^0.14.2",
-    "wrtc": "^0.4.6"
+    "wrtc": "^0.4.6",
+    "ws": "^7.4.0"
   },
   "devDependencies": {},
   "author": "",

@@ -63,7 +63,7 @@ const main = async () => {
 					],
 			},
 			modules:        {
-					transport: [TCP, WebSockets, WebRTCStar],
+					transport: [WebRTCStar],
 					connEncryption: [NOISE, SECIO],
 					streamMuxer: [MPLEX],
 			      	pubsub: GossipSub,
@@ -151,7 +151,7 @@ const main = async () => {
 		libp2p.pubsub.on(topic, handler)
 		libp2p.pubsub.subscribe(topic)
 
-		const data = new TextEncoder().encode(`Hello <${thisId}>`)
+		const data = new TextEncoder().encode(`Hello from NodeJS: <${thisId}>`)
 
 		setInterval( async () => {
 		 libp2p.pubsub.publish('paxos', data)

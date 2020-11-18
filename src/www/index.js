@@ -12,7 +12,7 @@ import PeerId from 'peer-id'
 import identity from '.identity.json'
 import peers  from '.peers.json'
 
-document.addEventListener('DOMContentLoaded', async () => {
+document.addEventListener('DOMContentLoaded', async (d) => {
 
   // Create our libp2p node
   const libp2p = await Libp2p.create({
@@ -76,6 +76,8 @@ document.addEventListener('DOMContentLoaded', async () => {
   })
 
   await libp2p.start()
+
+  d.libp2p = libp2p
  libp2p.connectionManager.on('peer:connect', (connection) => {
       console.log('\n \n Connection established to:', connection.remotePeer.toB58String())  // Emitted when a peer has been found
    
@@ -96,7 +98,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     libp2p.pubsub.on(topic, handler)
     libp2p.pubsub.subscribe(topic)
 
-    const data = new TextEncoder().encode(`Hello <${thisId}>`)
+    const data = new TextEncoder().encode(`Hello from the Browser`)
 
     setInterval( async () => {
      libp2p.pubsub.publish('paxos', data)
@@ -106,6 +108,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     }, 5000
 
      );
+
 
     console.log('\n ┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈\n')
     console.log(' 👥 Libp2p: \t\tInitializing...')
