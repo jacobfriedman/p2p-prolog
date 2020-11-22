@@ -1,0 +1,9 @@
+version: "3.3"
+services:
+    prolog-swipl-paxos:
+        build: ./srv/prolog
+        networks:
+            service_network:
+
+networks:
+    service_network:
