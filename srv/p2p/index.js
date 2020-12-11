@@ -137,7 +137,20 @@ const main = async () => {
 	wss.on('connection', function connection(ws) {
 
 	  ws.on('message', async (message) => {
+
 	    console.log(message);
+	    // Return to local sender
+		ws.send(message)
+
+		const handleIncomingMessage = (msg) => {
+		  // Forward to local sender
+		  ws.send(new TextDecoder().decode(msg.data));
+		}
+
+		libp2p.pubsub.on(topic, handleIncomingMessage)
+		libp2p.pubsub.subscribe(topic)
+
+
 	    await libp2p.pubsub.publish(
 	    	topic, new TextEncoder().encode(message)
 	    	).then(value => {
@@ -162,12 +175,7 @@ const main = async () => {
 	})
 
 
-	const handler = (msg) => {
-	  console.log(`topic: ${topic}`, new TextDecoder().decode(msg.data))
-	}
 
-	libp2p.pubsub.on(topic, handler)
-	libp2p.pubsub.subscribe(topic)
 
 	
 	/*const data = new TextEncoder().encode(`Hello from NodeJS: <${thisId}>`)
