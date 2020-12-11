@@ -55,30 +55,29 @@ document.addEventListener('DOMContentLoaded', async (d) => {
 
   output.textContent = ''
 
-  function log (txt) {
+  function log (target, txt) {
     console.info(txt)
-    output.textContent += `${txt.trim()}\n`
+    target.textContent += `${txt.trim()}\n`
   }
 
   // Listen for new peers
   libp2p.on('peer:discovery', (peerId) => {
-    log(`Found peer ${peerId.toB58String()}`)
+    log(status, `Found peer ${peerId.toB58String()}`)
   })
 
   // Listen for new connections to peers
   libp2p.connectionManager.on('peer:connect', (connection) => {
-    log(`Connected to ${connection.remotePeer.toB58String()}`)
+    log(status, `Connected to ${connection.remotePeer.toB58String()}`)
   })
 
   // Listen for peers disconnecting
   libp2p.connectionManager.on('peer:disconnect', (connection) => {
-    log(`Disconnected from ${connection.remotePeer.toB58String()}`)
+    log(status, `Disconnected from ${connection.remotePeer.toB58String()}`)
   })
 
   await libp2p.start()
 
-  d.libp2p = libp2p
- libp2p.connectionManager.on('peer:connect', (connection) => {
+   libp2p.connectionManager.on('peer:connect', (connection) => {
       console.log('\n \n Connection established to:', connection.remotePeer.toB58String())  // Emitted when a peer has been found
    
     })
@@ -92,7 +91,8 @@ document.addEventListener('DOMContentLoaded', async (d) => {
 
     const topic = 'paxos'
     const handler = (msg) => {
-      console.log(`topic: ${topic}`, new TextDecoder().decode(msg.data))
+      console.log(new TextDecoder().decode(msg.data))
+      log(output, new TextDecoder().decode(msg.data))
     }
 
     libp2p.pubsub.on(topic, handler)
@@ -100,7 +100,7 @@ document.addEventListener('DOMContentLoaded', async (d) => {
 
     const data = new TextEncoder().encode(`Hello from the Browser`)
 
-    setInterval( async () => {
+    /*setInterval( async () => {
      libp2p.pubsub.publish('paxos', data)
 
   // console.log(libp2p.connections,'CONENCTIONS')
@@ -108,6 +108,7 @@ document.addEventListener('DOMContentLoaded', async (d) => {
     }, 5000
 
      );
+     */
 
 
     console.log('\n ┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈\n')

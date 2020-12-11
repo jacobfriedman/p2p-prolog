@@ -1,5 +1,6 @@
 const process 				= require('process')
 const fs 					= require('fs');
+const WebSocket 			= require('ws');
 
 //////////////// 		LIBP2P
 const Libp2p 				= require('libp2p')
@@ -127,40 +128,56 @@ const main = async () => {
 		  }
 	})
 
+	const wss = new WebSocket.Server({ port: 8083 });
+
 	await libp2p.start()
 
-	  libp2p.connectionManager.on('peer:connect', (connection) => {
-	    console.log('\n \n Connection established to:', connection.remotePeer.toB58String())	// Emitted when a peer has been found
+	const topic = 'paxos'
+
+	wss.on('connection', function connection(ws) {
+
+	  ws.on('message', async (message) => {
+	    console.log(message);
+	    await libp2p.pubsub.publish(
+	    	topic, new TextEncoder().encode(message)
+	    	).then(value => {
+	    		// publish value is undefined. Should not be (nevertheless...)
+
+
+			}, reason => {
+			   console.log('FAILED',reason)
+			});
+
+	  });
 	 
-		
+	});
 
-	  })
+	// Emitted when a peer has been found
+	libp2p.connectionManager.on('peer:connect', (connection) => {
+		console.log('\n \n Connection established to:', connection.remotePeer.toB58String())	
+	})
 
-	  libp2p.peerStore.on('peer', async (peerId) => {
-	    console.log(`\n 🔭 Discovered:\t\t${peerId.toB58String()}`)
+	libp2p.peerStore.on('peer', async (peerId) => {
+		console.log(`\n 🔭 Discovered:\t\t${peerId.toB58String()}`)
+	})
 
-	   // let done = await libp2p.dial(peerId);
 
-	  })
+	const handler = (msg) => {
+	  console.log(`topic: ${topic}`, new TextDecoder().decode(msg.data))
+	}
 
-		const topic = 'paxos'
-		const handler = (msg) => {
-		  console.log(`topic: ${topic}`, new TextDecoder().decode(msg.data))
-		}
+	libp2p.pubsub.on(topic, handler)
+	libp2p.pubsub.subscribe(topic)
 
-		libp2p.pubsub.on(topic, handler)
-		libp2p.pubsub.subscribe(topic)
+	
+	/*const data = new TextEncoder().encode(`Hello from NodeJS: <${thisId}>`)
 
-		const data = new TextEncoder().encode(`Hello from NodeJS: <${thisId}>`)
 
 		setInterval( async () => {
-		 libp2p.pubsub.publish('paxos', data)
-
-	// console.log(libp2p.connections,'CONENCTIONS')
-
-		}, 5000
-
-		 );
+			 libp2p.pubsub.publish(topic, data)
+			}, 5000
+		);
+	*/
 
 	  console.log('\n ┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈\n')
 	  console.log(' 👥 Libp2p: \t\tInitializing...')
@@ -172,9 +189,6 @@ const main = async () => {
 	    console.log(`\n 🌐 Your Address: \t${addr.toString()}/p2p/${libp2p.peerId.toB58String()}`)
 	  })
 
-
-
-		
 
 		const stop = async () => {
 		// stop libp2p
