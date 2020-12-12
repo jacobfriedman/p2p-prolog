@@ -140,7 +140,9 @@ const main = async () => {
 
 	    console.log(message);
 	    // Return to local sender
-		ws.send(message)
+		 wss.clients.forEach(function each(client) {
+		        client.send(message);
+	     });
 
 		const handleIncomingMessage = (msg) => {
 		  // Forward to local sender
