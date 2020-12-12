@@ -2,6 +2,8 @@
 :- use_module(library(udp_broadcast)).
 :- use_module(library(paxos)).
 
+:- use_module(library(backcomp)).
+
 :- debug(paxos(node)).
 :- debug(paxos(replicate)).
 
@@ -94,9 +96,9 @@ broadcast_request(Message) :- b_getval(websocket, WS), ws_receive(WS, Message).
         (
                (
                 ws_send(WS, prolog(Paxos)),
-                wait_for_input([WS], WS, 0), 
+                wait_for_input([WS], WS, 1), 
                 ws_receive(WS, Message, [format(prolog)]),
-                call(Message)
+                assertz(Message.data)
                 ),
                true
         )
@@ -110,7 +112,7 @@ broadcast_request(Message) :- b_getval(websocket, WS), ws_receive(WS, Message).
                 ws_send(WS, prolog(Paxos)),
                 wait_for_input([WS], WS, TMO), 
                 ws_receive(WS, Message, [format(prolog)]),
-                call(Message)
+                assertz(Message.data)
                 ),
                 true
         )
