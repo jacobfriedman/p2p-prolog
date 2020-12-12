@@ -98,7 +98,7 @@ broadcast_request(Message) :- b_getval(websocket, WS), ws_receive(WS, Message).
                 ws_send(WS, prolog(Paxos)),
                 wait_for_input([WS], WS, 1), 
                 ws_receive(WS, Message, [format(prolog)]),
-                assertz(Message.data)
+                writeln(Message.data)
                 ),
                true
         )
@@ -112,11 +112,13 @@ broadcast_request(Message) :- b_getval(websocket, WS), ws_receive(WS, Message).
                 ws_send(WS, prolog(Paxos)),
                 wait_for_input([WS], WS, TMO), 
                 ws_receive(WS, Message, [format(prolog)]),
-                assertz(Message.data)
+                writeln(Message.data)
                 ),
                 true
         )
      ). 
+
+:- broadcast_request(Message), writeln(Message), writeln('BROADCAST'), b_getval(websocket, WS), ws_receive(WS, Message), true. 
 
 
 paxos:paxos_message_hook(Paxos, -,   libp2p(paxos, Paxos)) :- !.
