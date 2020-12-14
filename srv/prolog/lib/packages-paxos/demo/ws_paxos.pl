@@ -94,11 +94,18 @@ broadcast_request(Message) :- b_getval(websocket, WS), ws_receive(WS, Message).
 :- nb_getval(websocket, WS), listen(
         libp2p(paxos, Paxos), 
         (
-               (
-                ws_send(WS, prolog(Paxos)),
-                wait_for_input([WS], WS, 1), 
-                ws_receive(WS, Message, [format(prolog)]),
-                writeln(Message.data)
+                (
+                    forall(broadcast_request(Term),
+                      (   
+                        writeln(Term),
+                        send(WS, Term, [format(prolog)]),
+                        writeln(Message)
+                      )
+                    ),
+                    ws_send(WS, prolog(Paxos)),
+                    wait_for_input([WS], WS, 0), 
+                    ws_receive(WS, Message, [format(prolog)]),
+                    writeln(Message.data)
                 ),
                true
         )
@@ -108,18 +115,57 @@ broadcast_request(Message) :- b_getval(websocket, WS), ws_receive(WS, Message).
 :- nb_getval(websocket, WS), listen(
         libp2p(paxos, Paxos, TMO), 
         (
-                (
-                ws_send(WS, prolog(Paxos)),
-                wait_for_input([WS], WS, TMO), 
-                ws_receive(WS, Message, [format(prolog)]),
-                writeln(Message.data)
+                (                    
+                    forall(broadcast_request(Term),
+                      (   
+                        writeln(Term),
+                        send(WS, Term, [format(prolog)]),
+                        writeln(Message)
+                      )
+                    ),
+                    ws_send(WS, prolog(Paxos)),
+                    wait_for_input([WS], WS, TMO), 
+                    ws_receive(WS, Message, [format(prolog)]),
+                    writeln(Message.data)
                 ),
                 true
         )
      ). 
+/*
+ld_dispatch(S, Message, From) :-
+    !, tipc_get_name(S, Name),
+    term_to_atom(wru(Name), Atom),
+    tipc_send(S, Atom, From, []).
 
-:- broadcast_request(Message), writeln(Message), writeln('BROADCAST'), b_getval(websocket, WS), ws_receive(WS, Message), true. 
+ld_dispatch(S, Message, From) :-
+    !, forall(broadcast_request(Term),
+          (   term_to_atom(Term, Atom),
+              tipc_send(S, Atom, From, []))).
 
+ld_dispatch(_S, Term, _From) :-
+    safely(broadcast(Term)).
+
+dispatch(WS) :-
+    ws_receive(WS, Message, [format(prolog)]),
+    route(WS, Term),
+    !,
+    dispatch_traffic(S).
+
+
+:- nb_setval(websocket, WS), dispatch(WS).
+
+    */
+
+
+
+e(WS) :- nb_setval(websocket, WS),
+        ws_receive(WS, Message),
+        (   Message.opcode == close
+        ->  true
+        ;   string_concat('Hey, you said ', Message.data , MessageRes),
+            ws_send(WS, text(MessageRes)), 
+            echo(WS)
+        ).
 
 paxos:paxos_message_hook(Paxos, -,   libp2p(paxos, Paxos)) :- !.
 paxos:paxos_message_hook(Paxos, TMO, libp2p(paxos, Paxos, TMO)).
