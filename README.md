@@ -82,8 +82,8 @@ future: use Krustlet to handle WASMs with Kubernetes?
 Following <https://github.com/ipfs/js-ipfs/issues/2779>...
 
 - [ ] Hook up LibP2P
-- [ ] Integrate RAFT
-- [ ] DROPPED: Establish LibP2P AF_UNIX [IPC] methods with <https://nodejs.org/api/net.html#net_ipc_support>
+- [ ] Integrate Loopback UDP Interface with <https://github.com/deitch/multicast-test>
+- [ ] LibP2P AF_UNIX [IPC] methods with <https://nodejs.org/api/net.html#net_ipc_support>
 - 
 
 ## Prolog

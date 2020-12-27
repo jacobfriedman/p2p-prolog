@@ -50,7 +50,6 @@ g(K) :-
 :- multifile
     paxos:paxos_message_hook/3.
 
-:- trace.
 
 paxos:paxos_message_hook(Paxos, -,   udp(paxos, Paxos)) :- !.
 paxos:paxos_message_hook(Paxos, TMO, udp(paxos, Paxos, TMO)).

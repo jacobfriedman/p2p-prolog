@@ -18,25 +18,20 @@
 
 :- http_open_websocket('ws://localhost:8083/ws', WS, []), 
    nb_setval(websocket, WS).
-
 /*
+ld_dispatch(S, Message, From) :-
+    !, tipc_get_name(S, Name),
+    term_to_atom(wru(Name), Atom),
+    tipc_send(S, Atom, From, []).
 
-We don't need a server to handle incoming...
-the WS opens a socket and we just parse the receipts.
+ld_dispatch(S, Message, From) :-
+    !, forall(broadcast_request(Term),
+          (   term_to_atom(Term, Atom),
+              tipc_send(S, Atom, From, []))).
 
-:- http_handler(root(ws),
-    http_upgrade_to_websocket(echo, []),
-    [spawn([])]).
-
-    echo(WS) :- nb_setval(websocket, WS),
-        ws_receive(WS, Message),
-        (   Message.opcode == close
-        ->  true
-        ;   string_concat('Hey, you said ', Message.data , MessageRes),
-            ws_send(WS, text(MessageRes)), 
-            echo(WS)
-        ).
-*/
+ld_dispatch(_S, Term, _From) :-
+    safely(broadcast(Term)).
+    */
 
 
 
@@ -91,17 +86,13 @@ Broadcast Term. There are no limitations to Term, though being a global service,
 broadcast_request(Message) :- b_getval(websocket, WS), ws_receive(WS, Message). 
 */
 
+
+
+
 :- nb_getval(websocket, WS), listen(
         libp2p(paxos, Paxos), 
         (
                 (
-                    forall(broadcast_request(Term),
-                      (   
-                        writeln(Term),
-                        send(WS, Term, [format(prolog)]),
-                        writeln(Message)
-                      )
-                    ),
                     ws_send(WS, prolog(Paxos)),
                     wait_for_input([WS], WS, 0), 
                     ws_receive(WS, Message, [format(prolog)]),
@@ -119,7 +110,8 @@ broadcast_request(Message) :- b_getval(websocket, WS), ws_receive(WS, Message).
                     forall(broadcast_request(Term),
                       (   
                         writeln(Term),
-                        send(WS, Term, [format(prolog)]),
+                        term_to_atom(Term, Atom),
+                        send(WS, Atom, [format(prolog)]),
                         writeln(Message)
                       )
                     ),
@@ -132,45 +124,46 @@ broadcast_request(Message) :- b_getval(websocket, WS), ws_receive(WS, Message).
         )
      ). 
 /*
-ld_dispatch(S, Message, From) :-
-    !, tipc_get_name(S, Name),
-    term_to_atom(wru(Name), Atom),
-    tipc_send(S, Atom, From, []).
 
-ld_dispatch(S, Message, From) :-
-    !, forall(broadcast_request(Term),
-          (   term_to_atom(Term, Atom),
-              tipc_send(S, Atom, From, []))).
+udp_br_collect_replies(Queue, Timeout, Reply) :-
+      get_time(Start),
+      Deadline is Start+Timeout,
+      repeat,
+         (   thread_get_message(Queue, Reply,
+                                [ deadline(Deadline)
+                                ])
+         ->  true
+         ;   !,
+             fail
+         ).
 
-ld_dispatch(_S, Term, _From) :-
-    safely(broadcast(Term)).
+*/
 
 dispatch(WS) :-
     ws_receive(WS, Message, [format(prolog)]),
-    route(WS, Term),
+    writeln(Message),
+    dispatch(WS).
+   
+   /* route(WS, Term),
     !,
-    dispatch_traffic(S).
-
-
-:- nb_setval(websocket, WS), dispatch(WS).
-
-    */
+    dispatch_traffic(S).*/
 
 
 
-e(WS) :- nb_setval(websocket, WS),
-        ws_receive(WS, Message),
-        (   Message.opcode == close
-        ->  true
-        ;   string_concat('Hey, you said ', Message.data , MessageRes),
-            ws_send(WS, text(MessageRes)), 
-            echo(WS)
-        ).
+
+
+:- multifile
+    paxos:paxos_message_hook/3.
+
+
+
+
+
 
 paxos:paxos_message_hook(Paxos, -,   libp2p(paxos, Paxos)) :- !.
 paxos:paxos_message_hook(Paxos, TMO, libp2p(paxos, Paxos, TMO)).
 
-
+/* :- nb_getval(websocket, WS), dispatch(WS). */
 
 /*:- http_server(http_dispatch, [port(8083)]). */
 

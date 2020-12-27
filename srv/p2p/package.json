@@ -21,7 +21,8 @@
     "peer-id": "^0.14.2",
     "unicast": "^1.2.0",
     "wrtc": "^0.4.6",
-    "ws": "^7.4.0"
+    "ws": "^7.4.0",
+    "liferaft": "git://github.com/jacobfriedman/liferaft.git"
   },
   "devDependencies": {},
   "author": "",
