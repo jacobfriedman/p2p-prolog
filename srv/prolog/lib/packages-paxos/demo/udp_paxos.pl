@@ -10,10 +10,10 @@
 		 *******************************/
 
 init_network :-
-    network(IP, Options),
-    udp_broadcast_initialize(IP,
-                             [ scope(paxos)
-                             | Options
+    udp_broadcast_initialize("239.0.0.2",
+                             [ 
+                                scope(paxos),
+                                method(multicast)
                              ]).
 
 main :-

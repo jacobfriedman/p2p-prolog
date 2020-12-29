@@ -61,8 +61,18 @@ If you're devving, you may need to clean the ridiculously large
 docker cache once in a while with `docker system prune -a`.
 
 
-
 ***
+
+### Routing
+
+We're going to have to route the outgoing UDP packets to 239.0.0.2 locally in order to send them to LibP2P.
+From <https://linux.die.net/man/8/iptables>
+Something like...
+
+```
+sudo ifconfig lo multicast
+iptables -t nat -A PREROUTING -s 239.0.0.2 -d 0.0.0.0 -p udp --dport 9999 -j REDIRECT
+```
 
 ### Todo
 

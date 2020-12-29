@@ -4,13 +4,11 @@
 
 ########################################################    		
 
-			# Install Packages #
-
-########################################################   					
-
 COPY . /app
 
-EXPOSE 8888
+############### Open default SWIPL Port
+
+EXPOSE 20005
 
 ########################################################   		
 
@@ -18,5 +16,5 @@ EXPOSE 8888
 
 ########################################################
 
-ENTRYPOINT ["swipl"]
-CMD ["/app/server.pl",  "--user=daemon", "--fork=false", "--port=8888"]
+
+CMD swipl -t exit "/app/server.pl" --user=daemon --fork=false
