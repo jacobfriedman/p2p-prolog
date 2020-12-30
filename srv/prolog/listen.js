@@ -1,6 +1,9 @@
 const dgram = require('dgram');
 const server = dgram.createSocket({type:'udp4', reuseAddr: true});
 
+// How come this doesnt work on instantiation BEFORE prolog?
+// May have to use tcp_setopt(S, reuseaddr)
+
 server.on('error', (err) => {
   console.log(`server error:\n${err.stack}`);
   server.close();

@@ -88,8 +88,15 @@ Something like...
 sudo ifconfig lo multicast
 iptables -t nat -A OUTPUT -d 239.0.0.2 -p udp -j REDIRECT --to-ports 20005
 ```
-... but why is raw output modification so slow? Tune in...
+Which gives us
 
+```
+| 127.0.0.1 |               239.0.0.2              | 127.0.0.1 |
+| paxos.pl  |    <--->  NAT lo "multicast"         |  libp2p   |   
+|  prolog   |    <--->   control-hijack    <---->  |  nodeJS   |    
+```
+
+... this should work with a libp2p broadcast session. ta-da!
 
 ### Todo
 
