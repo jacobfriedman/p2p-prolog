@@ -16,6 +16,8 @@ init_network :-
                                 method(multicast)
                              ]).
 
+
+
 main :-
     set_prolog_flag(toplevel_goal, prolog), % become interactive
     current_prolog_flag(argv, Argv),
@@ -23,7 +25,7 @@ main :-
     init_network,
     paxos_initialize(Options).
 
-:- initialization(main, main).
+:- initialization(main, main), trace(thread_get_message).
 
 
 		 /*******************************
@@ -49,6 +51,7 @@ g(K) :-
 
 :- multifile
     paxos:paxos_message_hook/3.
+
 
 
 paxos:paxos_message_hook(Paxos, -,   udp(paxos, Paxos)) :- !.

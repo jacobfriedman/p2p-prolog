@@ -70,15 +70,23 @@ We're going to have to route the outgoing UDP packets to 239.0.0.2 locally in or
 *Monitoring*: 
 - `tcpdump dst 239.0.0.2`
 - `iptables -t nat -vL`
+- `sudo iptables -t nat -D POSTROUTING 2` or 3, or 4..
 
 (delete iptables... snoop with `sudo iptables -t nat -v -L PREROUTING -n --line-number`)
 
 From <https://linux.die.net/man/8/iptables>
+
+AHA! MASQUERADE!
+
+Let's allow IP Forwarding:
+<https://www.revsys.com/writings/quicktips/nat.html>
+```echo 1 > /proc/sys/net/ipv4/ip_forward```
+
 Something like...
 
 ```
 sudo ifconfig lo multicast
-iptables -t raw -A OUTPUT -d 239.0.0.2 -p udp -j REDIRECT --to-ports 9999
+iptables -t nat -A OUTPUT -d 239.0.0.2 -p udp -j REDIRECT --to-ports 20005
 ```
 ... but why is raw output modification so slow? Tune in...
 
