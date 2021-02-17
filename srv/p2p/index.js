@@ -1,6 +1,5 @@
 const process 			= require('process')
-const fs 						= require('fs')
-const WebSocket 		= require('ws')
+const fs 				= require('fs')
 
 //////////////// 		LIBP2P
 const Libp2p 				= require('libp2p')
@@ -24,13 +23,9 @@ const PeerId 				= require('peer-id')
 
 //////////////// 		WebRTC Signalling Server
 const Signaller 		= require('libp2p-webrtc-star/src/sig-server')
-const transportKey 	= WebRTCStar.prototype[Symbol.toStringTag]
-
-
+const transportKey 	= WebRTCStar.prototype[Symbol.toStringTag
 
 //////////////// INITIALIZE  ////////////////////////
-
-
 
 const main = async () => {
 
@@ -124,60 +119,15 @@ const main = async () => {
 		}
 		})
 
-	const wss = new WebSocket.Server({ port: 8083 });
-
 	await libp2p.start()
-
 
 	const topic = 'paxos'
 
 	//////////////// WEBSOCKET SERVER  ////////////////////////
 
-	wss.on('connection', function connection(ws) {
-
-	  ws.on('message', async (message) => {
-
-	  	console.log(message);
-
-	  	if(message === 'paxos(forget(_)) .') {
-	  		return
-	  	}
-	  	
-	    //console.log('OUTGOING '+':(paxos'+message.replace(':(paxos','').slice(0,-2)+':123456789 .');
-
-		let outgoing = '';
-			outgoing += message;
-	    if(message.includes(':(paxos(')) {
-	    	 outgoing = outgoing.replace(':(paxos(','').replace('),_) .',':123 .')
-	    }
-
-	    if(message.includes('paxos(:(')) {
-	    	 outgoing = outgoing.replace('paxos(:(','').replace(',_)) .',':123 .')
-	    }
-	    
-
-	    /* .replace('paxos(:(','').replace(') .','') */
-
-	    console.log('----------------------------------------> '+outgoing+'\n')
-
-
-	    /*if(message.includes("claim_node('123456789'")) {
-		  	//console.log('NODE 123456789 IS NOW CLAIMED!')
-		  	client.send('paxos('message.replace(':(paxos','').slice(0,-2)+'):123456789 .');
-		  } else {*/
-	    // Return to local sender
-		 wss.clients.forEach(function each(client) {
-
-
-		        client.send(outgoing);
-	     });
-
-		//}
-
 		const handleIncomingMessage = (msg) => {
 		  // Forward to local sender
-
-		  ws.send(new TextDecoder().decode(msg.data));
+		  console.log(msg)
 		}
 
 		libp2p.pubsub.on(topic, handleIncomingMessage)
@@ -187,7 +137,6 @@ const main = async () => {
 	    	topic, new TextEncoder().encode(message)
 	    	).then(value => {
 	    		// publish value is undefined. Should not be (nevertheless...)
-
 
 			}, reason => {
 			   console.log('FAILED',reason)

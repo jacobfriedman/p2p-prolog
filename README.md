@@ -17,7 +17,6 @@ export DOMAIN=<yourdomain.here> && docker-compose -f docker-compose-client up
 
 _Note: Append `-d` to start docker-compose daemons._
 
-
 ### Initialization
 
 1. *Distribute Identities*
@@ -60,43 +59,7 @@ In order to remove containers, run `docker rm $(docker ps -a -q)`.
 If you're devving, you may need to clean the ridiculously large 
 docker cache once in a while with `docker system prune -a`.
 
-
 ***
-
-### Routing
-
-We're going to have to route the outgoing UDP packets to 239.0.0.2 locally in order to send them to LibP2P.
-
-*Monitoring*: 
-- `tcpdump dst 239.0.0.2`
-- `iptables -t nat -vL`
-- `sudo iptables -t nat -D POSTROUTING 2` or 3, or 4..
-
-(delete iptables... snoop with `sudo iptables -t nat -v -L PREROUTING -n --line-number`)
-
-From <https://linux.die.net/man/8/iptables>
-
-AHA! MASQUERADE!
-
-Let's allow IP Forwarding:
-<https://www.revsys.com/writings/quicktips/nat.html>
-```echo 1 > /proc/sys/net/ipv4/ip_forward```
-
-Something like...
-
-```
-sudo ifconfig lo multicast
-iptables -t nat -A OUTPUT -d 239.0.0.2 -p udp -j REDIRECT --to-ports 20005
-```
-Which gives us
-
-```
-| 127.0.0.1 |               239.0.0.2              | 127.0.0.1 |
-| paxos.pl  |    <--->  NAT lo "multicast"         |  libp2p   |   
-|  prolog   |    <--->   control-hijack    <---->  |  nodeJS   |    
-```
-
-... this should work with a libp2p broadcast session. ta-da!
 
 ### Todo
 
@@ -106,25 +69,15 @@ Which gives us
 
 ## Browser
 
-- [ ] Hook up LibP2P
-- [X] Grab from the swipl-wasm example index
-
-future: use Krustlet to handle WASMs with Kubernetes?
+- [X] Hook up LibP2P
 
 ## Node
 
-Following <https://github.com/ipfs/js-ipfs/issues/2779>...
-
-- [ ] Hook up LibP2P
-- [ ] Integrate Loopback UDP Interface with <https://github.com/deitch/multicast-test>
+- [X] Hook up LibP2P
 - [ ] LibP2P AF_UNIX [IPC] methods with <https://nodejs.org/api/net.html#net_ipc_support>
 - 
 
 ## Prolog
 - [ ] Deconstruct events to CBOR
-- [ ] DROPPED: Emulate required UDP Api Methodologies towards Paxos (Websocket Broadcast)
+- [ ] Interface on Socket I/O Via Docker
 
-
-... This goal is almost complete. Now needs to throw-back messages from libp2p/re-digest.
-
-### Websocket Message Passing

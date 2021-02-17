@@ -1,6 +1,6 @@
 version: "3.3"
 services:
-    prolog-swipl-paxos:
+    prolog:
         build: ./srv/prolog
 
     nodejs-libp2p:
