@@ -25,7 +25,7 @@ main :-
     init_network,
     paxos_initialize(Options).
 
-:- initialization(main, main), trace(thread_get_message).
+:- initialization(main, main), trace(paxos_message).
 
 
 		 /*******************************

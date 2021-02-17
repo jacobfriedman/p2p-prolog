@@ -12,39 +12,15 @@ server.on('error', (err) => {
 var connected = false;
 
 server.on('message', (msg, rinfo) => {
-  console.log(`\n${msg}\n${rinfo.address}:${rinfo.port}`);
-
  if(!connected) {
-	
 	server.connect(rinfo.port, rinfo.address, (err) => {
-
-		console.log(msg.includes('self'),'INCLUDESSELF')
-
-		server.send(msg, (err) => {
-			
-		});
-
-		
-
-		
+		server.send(msg, (err) => {});
 		connected = true
-
 	});
-
-
-
   } else {
-		server.send(msg, (err) => {
-			// server.close();
-		});
-		
+		server.send(msg, (err) => {});	
   }
   
-  
-  
-
-
-
 });
 
 server.on('listening', () => {
@@ -53,4 +29,3 @@ server.on('listening', () => {
 });
 
 server.bind(20005);
-// Prints: server listening 0.0.0.0:41234

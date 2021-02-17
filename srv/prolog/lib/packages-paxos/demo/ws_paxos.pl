@@ -2,8 +2,6 @@
 :- use_module(library(udp_broadcast)).
 :- use_module(library(paxos)).
 
-:- use_module(library(backcomp)).
-
 :- debug(paxos(node)).
 :- debug(paxos(replicate)).
 
@@ -36,12 +34,13 @@ ld_dispatch(_S, Term, _From) :-
 
 
 main :-
+    /*trace,*/
     set_prolog_flag(toplevel_goal, prolog), % become interactive
-    current_prolog_flag(argv, Argv),
-    argv_options(Argv, _Rest, Options),
-    paxos_initialize(Options).
+ /*  current_prolog_flag(argv, Argv),
+    argv_options(Argv, _Rest),*/
+    paxos_initialize([node(123)]).
 
-:- initialization(main, main).
+:- initialization(main, main), trace(paxos_message).
 
 
          /*******************************
@@ -87,16 +86,17 @@ broadcast_request(Message) :- b_getval(websocket, WS), ws_receive(WS, Message).
 */
 
 
-
-
 :- nb_getval(websocket, WS), listen(
         libp2p(paxos, Paxos), 
         (
-                (
+                (                     
                     ws_send(WS, prolog(Paxos)),
-                    wait_for_input([WS], WS, 0), 
-                    ws_receive(WS, Message, [format(prolog)]),
-                    writeln(Message.data)
+                    forall(broadcast_request(Term),
+                      (   
+                        writeln(Term),
+                        ws_send(WS, prolog(Term))
+                      )
+                    )
                 ),
                true
         )
@@ -106,43 +106,42 @@ broadcast_request(Message) :- b_getval(websocket, WS), ws_receive(WS, Message).
 :- nb_getval(websocket, WS), listen(
         libp2p(paxos, Paxos, TMO), 
         (
-                (                    
+                ( 
+
+                    ws_send(WS, prolog(Paxos)),                    
                     forall(broadcast_request(Term),
                       (   
-                        writeln(Term),
-                        term_to_atom(Term, Atom),
-                        send(WS, Atom, [format(prolog)]),
-                        writeln(Message)
+                        ws_send(WS, prolog(Term)),
+                        wait_for_input([WS], WS, TMO)
                       )
-                    ),
-                    ws_send(WS, prolog(Paxos)),
-                    wait_for_input([WS], WS, TMO), 
-                    ws_receive(WS, Message, [format(prolog)]),
-                    writeln(Message.data)
+                    )
+                    
+                    
                 ),
                 true
         )
      ). 
+
 /*
 
-udp_br_collect_replies(Queue, Timeout, Reply) :-
-      get_time(Start),
-      Deadline is Start+Timeout,
-      repeat,
-         (   thread_get_message(Queue, Reply,
-                                [ deadline(Deadline)
-                                ])
-         ->  true
-         ;   !,
-             fail
-         ).
+// We can't do this because we won't have THREADS!
+dispatch(WS) :-
+    ws_receive(WS, Message, [format(json)]),
+    ( Message.opcode == close
+    -> true
+    ; 
+      dispatch(WS)
+    ).
 
+:-  nb_getval(websocket, WS), dispatch(WS) .
 */
 
-dispatch(WS) :-
+/*
+:-
+    repeat,
     ws_receive(WS, Message, [format(prolog)]),
-    writeln(Message),
-    dispatch(WS).
+    writeln(Message).
+    */
    
    /* route(WS, Term),
     !,
@@ -158,10 +157,11 @@ dispatch(WS) :-
 
 
 
-
-
-paxos:paxos_message_hook(Paxos, -,   libp2p(paxos, Paxos)) :- !.
+/* 10 Second Timeout */
+paxos:paxos_message_hook(Paxos, 10,   libp2p(paxos, Paxos)) :- !.
 paxos:paxos_message_hook(Paxos, TMO, libp2p(paxos, Paxos, TMO)).
+
+
 
 /* :- nb_getval(websocket, WS), dispatch(WS). */
 

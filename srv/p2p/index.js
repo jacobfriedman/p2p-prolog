@@ -137,14 +137,46 @@ const main = async () => {
 
 	  ws.on('message', async (message) => {
 
-	    console.log(message);
+	  	console.log(message);
+
+	  	if(message === 'paxos(forget(_)) .') {
+	  		return
+	  	}
+	  	
+	    //console.log('OUTGOING '+':(paxos'+message.replace(':(paxos','').slice(0,-2)+':123456789 .');
+
+		let outgoing = '';
+			outgoing += message;
+	    if(message.includes(':(paxos(')) {
+	    	 outgoing = outgoing.replace(':(paxos(','').replace('),_) .',':123 .')
+	    }
+
+	    if(message.includes('paxos(:(')) {
+	    	 outgoing = outgoing.replace('paxos(:(','').replace(',_)) .',':123 .')
+	    }
+	    
+
+	    /* .replace('paxos(:(','').replace(') .','') */
+
+	    console.log('----------------------------------------> '+outgoing+'\n')
+
+
+	    /*if(message.includes("claim_node('123456789'")) {
+		  	//console.log('NODE 123456789 IS NOW CLAIMED!')
+		  	client.send('paxos('message.replace(':(paxos','').slice(0,-2)+'):123456789 .');
+		  } else {*/
 	    // Return to local sender
 		 wss.clients.forEach(function each(client) {
-		        client.send(message);
+
+
+		        client.send(outgoing);
 	     });
+
+		//}
 
 		const handleIncomingMessage = (msg) => {
 		  // Forward to local sender
+
 		  ws.send(new TextDecoder().decode(msg.data));
 		}
 
