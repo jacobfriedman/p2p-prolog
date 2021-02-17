@@ -1,3 +1,4 @@
+srv/prolog/Dockerfile
 **/node_modules
 **/.identity.json
 .identity.json
