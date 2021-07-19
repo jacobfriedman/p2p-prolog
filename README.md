@@ -76,10 +76,10 @@ docker cache once in a while with `docker system prune -a`.
 ## Node
 
 - [X] Hook up LibP2P
-- [ ] LibP2P AF_UNIX [IPC] methods with <https://nodejs.org/api/net.html#net_ipc_support>
+- [x] LibP2P AF_UNIX [IPC] methods with <https://nodejs.org/api/net.html#net_ipc_support>
 - 
 
 ## Prolog
-- [ ] Deconstruct events to CBOR
-- [ ] Interface on Socket I/O Via Docker
+- [x] Deconstruct events to CBOR
+- [x] Interface on Socket I/O Via Docker
 
